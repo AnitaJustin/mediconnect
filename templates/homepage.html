@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        /* Top bar styles */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgb(25, 141, 147);
+            padding: 10px;
+        }
+
+        /* Logo style */
+        .logo {
+            color: white;
+            font-size: 35px;
+            padding: 10px;
+        }
+
+        /* Button style */
+        .button {
+            background-color: rgb(206, 210, 222);
+            border: 2px solid black;
+            color: black;
+            text-align: center;
+            font-size: 16px;
+            border-radius: 12px;
+            width: 120px;
+            height: 45px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 20px;
+
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="logo">MEDICONNECT</div>
+        <!-- <button class="button" onclick="donorpage()" id="user">Donor</button>
+        <button class="button" onclick="receiverpage()" id="admin">Reciever</button>
+        <button class="button" onclick="adminpage()" id="admin">Admin</button> -->
+        <div class="button-container">
+            
+        <button class="button" onclick="signin()"> Sign In</button>
+        <button class="button" onclick="signup()"> Sign Up</button>
+
+        </div>
+    </div>
+
+    <h1 style="text-align: center; font-size: 45px;">Connecting Health, Sharing Hope</h1>
+    <p style="text-align: center; font-size: 30px; margin-left: 100px; margin-right: 100px; font-family: 'Bahnschrift Light', sans-serif;">
+        Unlock the potential of unused resources. Our platform matches your unopened,
+        unexpired medications,as well as vital aids like wheelchairs and walkers, with those who 
+        truly need them, making a difference for the environment and changing lives in the process </p>
+
+    <script>
+        function signin(){
+            window.location.href = "/signin";
+
+        }
+        function signup(){
+            window.location.href = "/signup";
+
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+
+{% extends "main.html" %}
+    {% block title %}Dashboard{% endblock %}
+    {% block content %}
+    <br><br><br>
+    
+    {% if status %}
+    <div class="button_container">
+        <button class="button" type="button" onclick="donate()">Donate</button>
+        
+    <button class="button" type="button" onclick="receiver()" >Request</button>
+    <div id="donateOptions" style="display: none;">
+        <h1>What do you wanna Donate?</h1>
+        <br><br>
+        <button class="donor-button-sub" type="button" style=" background-color: rgb(206, 210, 222);
+        width: 140px;
+        height: 35px; 
+        margin: 30px;
+        font-size: 15px;" onclick="donateMedicine()">Medicine</button>
+        <button class="donor-button-sub" type="button" style= " background-color: rgb(206, 210, 222);
+        width: 140px;
+        height: 35px; 
+        margin: 30px;
+        font-size: 15px;" onclick="donateAids()">Other Aids</button>
+    </div>
+
+    </div>
+    {% else %}
+    <h2>Access Denied</h2>
+    <button class="button" type="button" onclick="previous()">Back</button>
+    {% endif %}
+    <script>
+        function donateMedicine() {
+            window.location.href = "/medicine";
+        }
+        function donateAids() {
+            window.location.href = "/donor";
+        }
+        function donate() {
+            var donateOptions = document.getElementById("donateOptions");
+            if (donateOptions.style.display === "none") {
+                donateOptions.style.display = "flex"; /* Display as a flex container */
+            } else {
+                donateOptions.style.display = "none";
+            }
+        }
+        function receiver() {
+            window.location.href = "/receiver";
+        }
+        function previous() {
+            window.location.href = "";
+        }
+    </script>
+    {% endblock %}
