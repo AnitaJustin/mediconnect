@@ -56,28 +56,6 @@ def signup(request):
     #     form = SignInForm()
     # return render(request, 'signin.html', {'form': form})
 
-# def signin(request):
-#     if request.method == 'POST':
-#         form = SignInForm(request.POST)
-#         if form.is_valid():
-#             username = form.cleaned_data['username']
-#             password = form.cleaned_data['password']
-#             user = authenticate(request, username=username, password=password)
-#             print(f"Username: {username}, Password: {password}, User: {user}")
-
-#             if user is not None:
-#                 if login(request, user):
-#                     print("Login successful")
-#                     return redirect('dashboard')  # Redirect to your dashboard or any other page
-#                 else:
-#                     print("Login function returned False")
-#             else:
-#                 print("Authentication failed")
-
-#     else:
-#         form = SignInForm()
-
-#     return render(request, 'signin.html', {'form': form})
 
 def signin(request):
     if request.method == 'POST':
