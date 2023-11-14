@@ -32,9 +32,16 @@
                   No photo available
                 {% endif %}
               </td>
+              <td><button onclick="req('{{aid.id}}')">contact</button></td>
             </tr>
           {% endfor %}
         </tbody>
       </table>
-</body>
+
+      <script>
+        function req(aid){
+            window.location.href= "/details?id="+encodeURIComponent(aid);
+        }
+      </script>
+    </body>
 </html>

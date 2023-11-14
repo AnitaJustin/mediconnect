@@ -27,8 +27,10 @@ def signup(request):
             # Redirect the user to the login page.
             success(request, 'Account created successfully. You can now sign in.')
             return redirect('signin')
-        else:
-            return render(request, 'signup.html', {'form': form})
+    else:
+        form=SignUpForm()
+
+    return render(request, 'signup.html', {'form': form})
 
 
 def signin(request):
