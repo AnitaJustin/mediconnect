@@ -1,8 +1,11 @@
 # views.py
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from .forms import SignUpForm, SignInForm
+from .forms import *
 from django.contrib.messages import add_message,WARNING,success,info
+from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
+
 
 def homepage(request):
     return render(request,"homepage.html")
@@ -52,3 +55,33 @@ def signin(request):
 
 def dashboard(request):
     return render(request,"dashboard.html")
+
+@login_required
+def medicine(request):
+    if request.method=='POST':
+        form=MedicineForm(request.POST)
+        if form.is_valid():
+            medicine=form.save(commit=False)
+            medicine.user=request.user
+            medicine.save()
+
+            SendMailToAdmin(medicine)
+            return redirect('dashboard')
+        
+    else:
+        form=MedicineForm()
+
+
+    return render(request,"medicine.html",{'form':form})
+
+
+def SendMailToAdmin(medicine):
+    subject = 'New Medicine Submission'
+    message = f'A new medicine has been submitted:\n\n'
+    message += f'Medicine Name: {medicine.name}\n'
+    message += f'Dosage: {medicine.dosage}\n'
+    # Add other fields as needed
+
+    from_email = 'anitajustin007@gmail.com'
+    admin_email = 'anitajustinc@gmail.com'  # Replace with the actual admin email
+    send_mail(subject, message, from_email, [admin_email], fail_silently=False)

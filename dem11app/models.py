@@ -7,3 +7,17 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.username
+
+class medicines(models.Model):
+    name = models.CharField(max_length=256)
+    dosage=models.CharField(max_length=50)
+    disease=models.CharField(max_length=100)
+    quantity = models.PositiveIntegerField()
+    expirydate=models.DateField()
+    contents=models.CharField(max_length=250)
+    manufacturer=models.CharField(max_length=80)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.name
+
