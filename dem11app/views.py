@@ -2,6 +2,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from .forms import *
+from .models import *
 from django.contrib.messages import add_message,WARNING,success,info
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
@@ -76,7 +77,7 @@ def medicine(request):
 @login_required
 def aids(request):
     if request.method=='POST':
-        form=AidsForm(request.POST)
+        form=AidsForm(request.POST,request.FILES)
         if form.is_valid():
             aids=form.save(commit=False)
             aids.user=request.user
@@ -109,7 +110,8 @@ def request_med(request):
     return render(request,"req_med.html",{'form':form})
 
 def request_aid(request):
-    return render(request,"req_aids.html")
+    aids = OtherAids.objects.all()
+    return render(request,"req_aids.html",{'aids':aids})
 
 def SendMailToAdmin(subject,message):
    

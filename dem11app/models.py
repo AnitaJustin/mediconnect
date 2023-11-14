@@ -27,18 +27,19 @@ class OtherAids(models.Model):
     age=models.PositiveIntegerField()
     rate = models.DecimalField(max_digits=10, decimal_places=3)
     manufacturer=models.CharField(max_length=80)
+    current_photo = models.ImageField(upload_to='media/otheraids/', null=True, blank=True)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
     
 
-class receiver(models.Model):
+class req_med(models.Model):
     medicine=models.CharField(max_length=250)
     quantity=models.PositiveIntegerField()
     disease=models.CharField(max_length=150)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    prescription_photo = models.ImageField(upload_to='prescriptions/', null=True, blank=True)
+    prescription_photo = models.ImageField(upload_to='media/prescriptions/', null=True, blank=True)
     def __str__(self):
         return self.medicine
     

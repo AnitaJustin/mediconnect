@@ -5,4 +5,4 @@ from .models import *
 admin.site.register(CustomUser)
 admin.site.register(medicines)
 admin.site.register(OtherAids)
-admin.site.register(receiver)
+admin.site.register(req_med)

@@ -136,3 +136,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'anitajustin007@gmail.com'
 EMAIL_HOST_PASSWORD = 'dzpf nsvc frwz muhn'
 DEFAULT_FROM_EMAIL = 'anitajustin007@gmail.com'
+
+
+MEDIA_ROOT = BASE_DIR / "media"  # or any other path where you want to store media files
+MEDIA_URL = '/media/'

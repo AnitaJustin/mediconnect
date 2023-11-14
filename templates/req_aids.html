@@ -8,6 +8,33 @@
 </head>
 <body>
     <h1>Available equipments</h1>
-    
+    <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Duration</th>
+            <th>Rate</th>
+            <th>Manufacturer</th>
+            <th>Photo</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for aid in aids %}
+            <tr>
+              <td>{{ aid.name }}</td>
+              <td>{{ aid.age }}</td>
+              <td>{{ aid.rate }}</td>
+              <td>{{ aid.manufacturer }}</td>
+              <td>
+                {% if aid.current_photo %}
+                  <img src="{{ aid.current_photo.url }}" alt="{{ aid.name }} Photo" style="max-width: 250px; max-height: 250px;">
+                {% else %}
+                  No photo available
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
 </body>
 </html>

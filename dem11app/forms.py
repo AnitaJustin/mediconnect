@@ -21,10 +21,10 @@ class MedicineForm(forms.ModelForm):
 class AidsForm(forms.ModelForm):
     class Meta:
         model=OtherAids
-        fields=['name','age','rate','manufacturer']
+        fields=['name','age','rate','manufacturer','current_photo']
 
 class Req_med_Form(forms.ModelForm):
     class Meta:
-        model=receiver
+        model=req_med
         fields=['medicine','quantity','disease','prescription_photo']
 
