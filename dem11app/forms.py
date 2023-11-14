@@ -23,4 +23,8 @@ class AidsForm(forms.ModelForm):
         model=OtherAids
         fields=['name','age','rate','manufacturer']
 
+class Req_med_Form(forms.ModelForm):
+    class Meta:
+        model=receiver
+        fields=['medicine','quantity','disease','prescription_photo']
 

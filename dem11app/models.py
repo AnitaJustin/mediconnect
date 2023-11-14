@@ -32,3 +32,15 @@ class OtherAids(models.Model):
     def __str__(self):
         return self.name
     
+
+class receiver(models.Model):
+    medicine=models.CharField(max_length=250)
+    quantity=models.PositiveIntegerField()
+    disease=models.CharField(max_length=150)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    prescription_photo = models.ImageField(upload_to='prescriptions/', null=True, blank=True)
+    def __str__(self):
+        return self.medicine
+    
+
+

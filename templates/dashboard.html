@@ -23,6 +23,20 @@
         margin: 30px;
         font-size: 15px;" onclick="donateAids()">Other Aids</button>
     </div>
+    <div id="receiveOptions" style="display: none;">
+        <h1>What do you wanna request?</h1>
+        <br><br>
+        <button class="receiver-button-sub" type="button" style=" background-color: rgb(206, 210, 222);
+        width: 140px;
+        height: 35px; 
+        margin: 30px;
+        font-size: 15px;" onclick="receiveMedicine()">Medicine</button>
+        <button class="donor-button-sub" type="button" style= " background-color: rgb(206, 210, 222);
+        width: 140px;
+        height: 35px; 
+        margin: 30px;
+        font-size: 15px;" onclick="receiveAids()">Other Aids</button>
+    </div>
 
     </div>
 
@@ -42,10 +56,24 @@
             }
         }
         function receiver() {
-            window.location.href = "/receiver";
+            var receiveOptions = document.getElementById("receiveOptions");
+            if (receiveOptions.style.display === "none") {
+                receiveOptions.style.display = "flex"; /* Display as a flex container */
+            } else {
+                receiveOptions.style.display = "none";
+            }
         }
+        function receiveMedicine(){
+            window.location.href = "/request_medicine";
+        }
+        function receiveAids(){
+            window.location.href = "/request_aid";
+        }
+        
         function previous() {
             window.location.href = "";
         }
+
+
     </script>
 {% endblock %}

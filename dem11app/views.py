@@ -91,6 +91,26 @@ def aids(request):
 
     return render(request,"aids.html",{'form':form})
 
+
+@login_required
+def request_med(request):
+    if request.method=='POST':
+        form=Req_med_Form(request.POST,request.FILES)
+        if form.is_valid():
+            receiver=form.save(commit=False)
+            receiver.user=request.user
+            receiver.save()
+
+            SendMailToAdmin('New request Submitted',get_req_med_message(receiver))
+            return redirect('dashboard')
+        
+    else:
+        form=Req_med_Form()
+    return render(request,"req_med.html",{'form':form})
+
+def request_aid(request):
+    return render(request,"req_aids.html")
+
 def SendMailToAdmin(subject,message):
    
     from_email = 'anitajustin007@gmail.com'
@@ -107,7 +127,11 @@ def get_medicine_message(medicine):
            f'Medicine Name: {medicine.name}\n' \
            f'Dosage: {medicine.dosage}\n'
 
+def get_req_med_message(receiver):
+    return f'A new request has been submitted:\n\n' \
+           f'Medicine Name: {receiver.medicine}\n' \
+           f'Disease: {receiver.disease}\n'
 
-# def receiver(request):
-#     return render(request,"receiver.html")
+
    
+
