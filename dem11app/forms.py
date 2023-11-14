@@ -16,3 +16,11 @@ class MedicineForm(forms.ModelForm):
     class Meta:
         model=medicines
         fields=['name','dosage','disease','quantity','expirydate','contents','manufacturer']
+
+
+class AidsForm(forms.ModelForm):
+    class Meta:
+        model=OtherAids
+        fields=['name','age','rate','manufacturer']
+
+

@@ -8,5 +8,7 @@ urlpatterns = [
     path('signin/',signin, name='signin'),
     path('dashboard/',dashboard,name='dashboard'),
     path('medicine/',medicine,name='medicine'),
+    path('aids/', aids, name='aids'),
+    path('receiver/', receiver, name='receiver'),
     
 ]

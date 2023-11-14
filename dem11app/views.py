@@ -6,7 +6,6 @@ from django.contrib.messages import add_message,WARNING,success,info
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 
-
 def homepage(request):
     return render(request,"homepage.html")
 
@@ -65,7 +64,7 @@ def medicine(request):
             medicine.user=request.user
             medicine.save()
 
-            SendMailToAdmin(medicine)
+            SendMailToAdmin('New Medicine Submission',get_medicine_message(medicine))
             return redirect('dashboard')
         
     else:
@@ -74,14 +73,41 @@ def medicine(request):
 
     return render(request,"medicine.html",{'form':form})
 
+@login_required
+def aids(request):
+    if request.method=='POST':
+        form=AidsForm(request.POST)
+        if form.is_valid():
+            aids=form.save(commit=False)
+            aids.user=request.user
+            aids.save()
 
-def SendMailToAdmin(medicine):
-    subject = 'New Medicine Submission'
-    message = f'A new medicine has been submitted:\n\n'
-    message += f'Medicine Name: {medicine.name}\n'
-    message += f'Dosage: {medicine.dosage}\n'
-    # Add other fields as needed
+            SendMailToAdmin('New Aids Submission',get_aids_message(aids))
+            return redirect('dashboard')
+        
+    else:
+        form=AidsForm()
 
+
+    return render(request,"aids.html",{'form':form})
+
+def SendMailToAdmin(subject,message):
+   
     from_email = 'anitajustin007@gmail.com'
     admin_email = 'anitajustinc@gmail.com'  # Replace with the actual admin email
     send_mail(subject, message, from_email, [admin_email], fail_silently=False)
+
+def get_aids_message(aids):
+    return f'A new aids submission:\n\n' \
+           f'Aids Name: {aids.name}\n' \
+           
+
+def get_medicine_message(medicine):
+    return f'A new medicine has been submitted:\n\n' \
+           f'Medicine Name: {medicine.name}\n' \
+           f'Dosage: {medicine.dosage}\n'
+
+
+# def receiver(request):
+#     return render(request,"receiver.html")
+   
