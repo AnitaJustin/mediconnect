@@ -12,6 +12,9 @@ urlpatterns = [
     path('request_medicine/', request_med, name='receiver'),
     path('request_aid/',request_aid,name='request_aid'),
     path('saving_req/',saving_req,name='saving_req'),
+    path('admin_signin/',admin_signin,name="admin_signin"),
+    path('admin_dashboard/',admin_dashboard,name="admin_dashboard"),
+    
 
     
 ]

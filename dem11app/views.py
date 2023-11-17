@@ -1,5 +1,5 @@
 # views.py
-from django.shortcuts import render, redirect,get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from .forms import *
 from .models import *
@@ -54,10 +54,31 @@ def signin(request):
 
     return render(request, 'signin.html', {'form': form})
 
+def admin_signin(request):
+    if request.method == 'POST':
+        form = AdminForm(request.POST)
+
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            admin_user = Admin.objects.filter(username=username,password=password).first()
+
+            if admin_user is not None:
+                return redirect('admin_dashboard') 
+            
+            else:
+                info(request,'Invalid Credentials')
+
+    else:
+        form = AdminForm()
+
+    return render(request, 'admin_signin.html', {'form': form})
 
 def dashboard(request):
     return render(request,"dashboard.html")
 
+def admin_dashboard(request):
+    return render(request,"admin_dashboard.html")
 @login_required
 def medicine(request):
     if request.method=='POST':
@@ -111,10 +132,11 @@ def request_med(request):
         form=Req_med_Form()
     return render(request,"req_med.html",{'form':form})
 
+@login_required
 def request_aid(request):
     aids = OtherAids.objects.all()
     return render(request,"req_aids.html",{'aids':aids})
-
+@login_required
 def saving_req(request):
     aid_id=request.GET.get('id')
     aid = OtherAids.objects.get(id=aid_id)
