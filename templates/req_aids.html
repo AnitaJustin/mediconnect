@@ -7,6 +7,29 @@
     <title>Document</title>
 </head>
 <body>
+    
+
+    {% if messages %}   
+    <div id="myModal" class="modal" style="
+        display: none;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #dd9a4f;
+        color: white;
+        padding: 20px;
+        z-index: 1;
+    ">
+        <span class="close" onclick="closeModal()" style="color: white;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;">
+        &times;</span>
+        <p id="modal-content"></p>
+    </div>
+{% endif %}
+
     <h1>Available equipments</h1>
     <table>
         <thead>
@@ -40,8 +63,41 @@
 
       <script>
         function req(aid){
-            window.location.href= "/details?id="+encodeURIComponent(aid);
+            window.location.href= "/saving_req?id="+encodeURIComponent(aid);
         }
+        function displayModal(message) {
+            var modal = document.getElementById('myModal');
+            var modalContent = document.getElementById('modal-content');
+            modalContent.innerHTML = message;
+            modal.style.display = 'block';
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            var modal = document.getElementById('myModal');
+
+            modal.style.display = 'none';
+        }
+
+        // Include this at the end of your body
+        window.onload = function() {
+            // Display the modal on page load if there is a message
+            // var alertMessage = "{{ messages }}";
+            // if (alertMessage) {
+            //     displayModal(alertMessage);
+            //     // Hide the modal after 5 seconds (adjust as needed)
+            //     setTimeout(closeModal, 5000);
+            // }
+
+            {% for message in messages %} 
+        var alertMessage = "{{ message }}";
+        if (alertMessage) {
+            displayModal(alertMessage);
+            // Hide the modal after 5 seconds (adjust as needed)
+            setTimeout(closeModal, 5000);
+        }
+    {% endfor %}
+        };
       </script>
     </body>
 </html>

@@ -3,7 +3,35 @@
     {% block title %}Dashboard{% endblock %}
     {% block content %}
     <br><br><br>
-    
+    <!-- {% if messages %}
+    <div class="alert" id="alert-box">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+        <span onclick="this.parentElement.style.display='none';">&times;</span>
+    </div>
+{% endif %} -->
+{% if messages %}   
+<div id="myModal" class="modal" style="
+    display: none;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #dd9a4f;
+    color: white;
+    padding: 20px;
+    z-index: 1;
+">
+    <span class="close" onclick="closeModal()" style="color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;">
+    &times;</span>
+    <p id="modal-content"></p>
+</div>
+{% endif %}
+
    
     <div class="button_container">
         <button class="button" type="button" onclick="donate()">Donate</button>
@@ -74,6 +102,40 @@
             window.location.href = "";
         }
 
+        function closeAlert() {
+            document.getElementById('alert-box').style.display = 'none';
+        }
 
+   
+        // window.onload = function() {
+        //     // Display the alert box on page load if it exists
+        //     var alertBox = document.getElementById('alert-box');
+        //     if (alertBox) {
+        //         alertBox.style.display = 'block';
+        //         // Hide the alert box after 5 seconds (adjust as needed)
+        //         setTimeout(closeAlert, 5000);
+        //     }
+        // };
+        function displayModal(message) {
+            var modal = document.getElementById('myModal');
+            var modalContent = document.getElementById('modal-content');
+            modalContent.innerHTML = message;
+            modal.style.display = 'block';
+        }
+        function closeModal() {
+            var modal = document.getElementById('myModal');
+
+            modal.style.display = 'none';
+        }
+        window.onload = function() {
+            {% for message in messages %} 
+        var alertMessage = "{{ message }}";
+        if (alertMessage) {
+            displayModal(alertMessage);
+            // Hide the modal after 5 seconds (adjust as needed)
+            setTimeout(closeModal, 5000);
+        }
+    {% endfor %}
+        };
     </script>
 {% endblock %}

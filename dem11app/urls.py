@@ -11,5 +11,7 @@ urlpatterns = [
     path('aids/', aids, name='aids'),
     path('request_medicine/', request_med, name='receiver'),
     path('request_aid/',request_aid,name='request_aid'),
+    path('saving_req/',saving_req,name='saving_req'),
+
     
 ]

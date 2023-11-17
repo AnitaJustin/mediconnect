@@ -1,9 +1,9 @@
 # views.py
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth import authenticate, login
 from .forms import *
 from .models import *
-from django.contrib.messages import add_message,WARNING,success,info
+from django.contrib.messages import add_message,warning,success,info,WARNING
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 
@@ -115,6 +115,18 @@ def request_aid(request):
     aids = OtherAids.objects.all()
     return render(request,"req_aids.html",{'aids':aids})
 
+def saving_req(request):
+    aid_id=request.GET.get('id')
+    aid = OtherAids.objects.get(id=aid_id)
+    existing_request = saving_request.objects.filter(user=request.user, aid=aid).exists()
+    if existing_request:
+        info(request, 'You have already requested this aid.')
+        return redirect('request_aid')
+    # Create a new aid request
+    aid_request = saving_request.objects.create(user=request.user, aid=aid)
+    SendMailToAdmin('New request Submitted',get_req_aid_message(aid_request))
+    success(request, 'Request submitted successfully.')
+    return redirect('dashboard')
 def SendMailToAdmin(subject,message):
    
     from_email = 'anitajustin007@gmail.com'
@@ -136,6 +148,10 @@ def get_req_med_message(receiver):
            f'Medicine Name: {receiver.medicine}\n' \
            f'Disease: {receiver.disease}\n'
 
+def get_req_aid_message(aid_request):
+    return f'A new request has been submitted:\n\n' \
+           f'Aid Name: {aid_request.aid}\n' \
+           f'requested by: {aid_request.user}\n'
 
    
 

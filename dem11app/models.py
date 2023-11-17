@@ -45,3 +45,6 @@ class req_med(models.Model):
     
 
 
+class saving_request(models.Model):
+    aid = models.ForeignKey(OtherAids, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
