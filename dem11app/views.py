@@ -6,6 +6,7 @@ from .models import *
 from django.contrib.messages import add_message,warning,success,info,WARNING
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+from django.apps import apps
 
 def homepage(request):
     return render(request,"homepage.html")
@@ -78,12 +79,43 @@ def dashboard(request):
     return render(request,"dashboard.html")
 
 def admin_dashboard(request):
-    donated_meds=medicines.objects.all()
-    donated_aids=OtherAids.objects.all()
-    reques_med=req_med.objects.all()
-    req_aids=saving_request.objects.all()
+    
+    donated_meds=medicines.objects.filter(removed="False")
+    donated_aids=OtherAids.objects.filter(removed="False")
+    reques_med=req_med.objects.filter(removed="False")
+    req_aids=saving_request.objects.filter(removed="False")
 
     return render(request,"admin_dashboard.html",{'donated_meds':donated_meds,'donated_aids':donated_aids,'reques_med':reques_med,'req_aids':req_aids})
+
+def approve(request):
+    if request.method=='GET':
+        id=request.GET.get('id')
+        table=request.GET.get('table')
+        model = apps.get_model(app_label='dem11app', model_name=table)
+        obj=model.objects.filter(id=id).first()
+        obj.approved="True"
+        obj.save()  
+        if table=="req_med":
+            user_mail=obj.user.email
+            from_email = 'anitajustin007@gmail.com'
+            send_mail("Request from Mediconnect","We are happy to help you.\nWe have accepted your request.\nMedicine:"+obj.medicine+"\nQuantity"+obj.quantity,from_email,[user_mail],html_message=None)
+        if table=="saving_request":
+            user_mail=obj.user.email
+            from_email = 'anitajustin007@gmail.com'
+            send_mail("Request from Mediconnect","We are happy to help you.\nWe have accepted your request.\nEquipment"+obj.aid.name+"\nrate:"+obj.aid.rate,from_email,[user_mail],html_message=None)
+
+    
+    return redirect('admin_dashboard')
+
+def remove(request):
+    if request.method=='GET':
+        id=request.GET.get('id')
+        table=request.GET.get('table')
+        model = apps.get_model(app_label='dem11app', model_name=table)
+        obj=model.objects.filter(id=id).first()
+        obj.removed="True"
+        obj.save()  
+    return redirect('admin_dashboard')
 @login_required
 def medicine(request):
     if request.method=='POST':
@@ -180,5 +212,6 @@ def get_req_aid_message(aid_request):
            f'Aid Name: {aid_request.aid}\n' \
            f'requested by: {aid_request.user}\n'
 
-   
+def signout(request):
+    return render(request,"homepage.html")
 

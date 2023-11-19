@@ -14,7 +14,12 @@ urlpatterns = [
     path('saving_req/',saving_req,name='saving_req'),
     path('admin_signin/',admin_signin,name="admin_signin"),
     path('admin_dashboard/',admin_dashboard,name="admin_dashboard"),
-    
+    path('admin_dashboard/approve',approve,name="approve"),
+    path('admin_dashboard/remove',remove,name="remove"),
+    path('signout/',signout,name="signout"),
+
+
+
 
     
 ]

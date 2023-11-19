@@ -27,7 +27,16 @@
                         <td>{{donations.manufacturer }}</td>
                         <td>{{donations.expirydate }}</td>
                         <td>{{donations.Contents }}</td>
-                        <td><button onclick="accept()">Accept</button></td>
+                        <td>
+                            {% if not donations.approved %}
+                                <button id="approve_{{ donations.id }}" onclick="approve('{{ donations.id }}','medicines')">Approve</button>
+                            {% else %}
+                                Approved
+                            {% endif %}
+                        </td>
+                        <td>
+                            <button id="remove_{{ donations.id }}" onclick="remove('{{ donations.id }}','medicines')">Remove</button>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -58,6 +67,16 @@
                               No photo available
                             {% endif %}
                           </td>
+                          <td>
+                            {% if not donations.approved %}
+                                <button id="approve_{{ donations.id }}" onclick="approve('{{ donations.id }}','OtherAids')">Approve</button>
+                            {% else %}
+                                Approved
+                            {% endif %}
+                        </td>
+                        <td>
+                            <button id="remove_{{ donations.id }}" onclick="remove('{{ donations.id }}','OtherAids')">Remove</button>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -89,6 +108,16 @@
                               No photo available
                             {% endif %}
                           </td>
+                          <td>
+                            {% if not requests.approved %}
+                                <button id="approve_{{ requests.id }}" onclick="approve('{{ requests.id }}','req_aids')">Approve</button>
+                            {% else %}
+                                Approved
+                            {% endif %}
+                        </td>
+                        <td>
+                            <button id="remove_{{ requests.id }}" onclick="remove('{{ requests.id }}','req_aids')">Remove</button>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -111,6 +140,16 @@
                         <td>{{ requests.user }}</td>
                         <td>{{requests.aid.rate }}</td>
                         <td>{{requests.aid.manufacturer }}</td>
+                        <td>
+                            {% if not requests.approved %}
+                                <button id="approve_{{ requests.id }}" onclick="approve('{{ requests.id }}','saving_request')">Approve</button>
+                            {% else %}
+                                Approved
+                            {% endif %}
+                        </td>
+                        <td>
+                            <button id="remove_{{ requests.id }}" onclick="remove('{{ requests.id }}','saving_request')">Remove</button>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -155,6 +194,12 @@
                 table.style.display = "none";
         }
     }
+        function approve(id,table){
+            window.location.href = `/admin_dashboard/approve?id=${id}&table=${table}`;
+        }
+        function remove(id,table){
+            window.location.href = `/admin_dashboard/remove?id=${id}&table=${table}`;
+        }
     </script>
   
 {% endblock %}

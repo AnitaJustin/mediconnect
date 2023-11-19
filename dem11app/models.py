@@ -23,7 +23,8 @@ class medicines(models.Model):
     contents=models.CharField(max_length=250)
     manufacturer=models.CharField(max_length=80)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    
+    approved=models.BooleanField(default="False")
+    removed=models.BooleanField(default="False")
     def __str__(self):
         return self.name
 
@@ -35,7 +36,8 @@ class OtherAids(models.Model):
     manufacturer=models.CharField(max_length=80)
     current_photo = models.ImageField(upload_to='media/otheraids/', null=True, blank=True)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-
+    approved=models.BooleanField(default="False")
+    removed=models.BooleanField(default="False")
     def __str__(self):
         return self.name
     
@@ -46,6 +48,8 @@ class req_med(models.Model):
     disease=models.CharField(max_length=150)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     prescription_photo = models.ImageField(upload_to='media/prescriptions/', null=True, blank=True)
+    approved=models.BooleanField(default="False")
+    removed=models.BooleanField(default="False")    
     def __str__(self):
         return self.medicine
     
@@ -54,3 +58,6 @@ class req_med(models.Model):
 class saving_request(models.Model):
     aid = models.ForeignKey(OtherAids, on_delete=models.CASCADE)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    approved=models.BooleanField(default="False")
+    removed=models.BooleanField(default="False")
+    
