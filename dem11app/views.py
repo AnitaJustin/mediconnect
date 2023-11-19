@@ -78,7 +78,12 @@ def dashboard(request):
     return render(request,"dashboard.html")
 
 def admin_dashboard(request):
-    return render(request,"admin_dashboard.html")
+    donated_meds=medicines.objects.all()
+    donated_aids=OtherAids.objects.all()
+    reques_med=req_med.objects.all()
+    req_aids=saving_request.objects.all()
+
+    return render(request,"admin_dashboard.html",{'donated_meds':donated_meds,'donated_aids':donated_aids,'reques_med':reques_med,'req_aids':req_aids})
 @login_required
 def medicine(request):
     if request.method=='POST':

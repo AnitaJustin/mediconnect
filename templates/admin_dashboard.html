@@ -2,4 +2,159 @@
 
 {% block content %}
 <h1>Welcome</h1>
+<button onclick="donated_meds()">DONATED MEDICINES</button>
+<button onclick="donated_aids()">DONATED AIDS</button>
+<button onclick="requested_meds()">REQUESTED MEDICINES</button>
+<button onclick="requested_aids()">REQUESTED AIDS</button>
+    <div id="donated_table" style="display: none;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Disease</th>
+                    <th>dosage</th>
+                    <th>Manufacturer</th>
+                    <th>Expiry Date </th>
+                    <th>Contents</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for donations in donated_meds %}
+                    <tr>
+                        <td>{{ donations.name }}</td>
+                        <td>{{ donations.disease }}</td>
+                        <td>{{donations.dosage }}</td>
+                        <td>{{donations.manufacturer }}</td>
+                        <td>{{donations.expirydate }}</td>
+                        <td>{{donations.Contents }}</td>
+                        <td><button onclick="accept()">Accept</button></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div id="donatedaids_table" style="display: none;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>rate</th>
+                    <th>Manufacturer</th>
+                    <th>photo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for donations in donated_aids %}
+                    <tr>
+                        <td>{{ donations.name }}</td>
+                        <td>{{ donations.age }}</td>
+                        <td>{{donations.rate}}</td>
+                        <td>{{donations.manufacturer }}</td>
+                        <td>
+                            {% if donations.current_photo %}
+                              <img src="{{ donations.current_photo.url }}" alt="{{ donations.name }} Photo" style="max-width: 250px; max-height: 250px;">
+                            {% else %}
+                              No photo available
+                            {% endif %}
+                          </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div id="requestedmed_table" style="display: none;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Disease</th>
+                    <th>dosage</th>
+                    <th>Manufacturer</th>
+                    <th>Expiry Date </th>
+                    <th>Contents</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for requests in requested_meds %}
+                    <tr>
+                        <td>{{ requests.medicine }}</td>
+                        <td>{{requests.quantity }}</td>
+                        <td>{{requests.disease }}</td>
+                        <td>{{requests.user }}</td>
+                        <td>
+                            {% if requests.prescription_photo %}
+                              <img src="{{ requests.prescription_photo.url }}" alt="{{ requests.medicine }} Photo" style="max-width: 250px; max-height: 250px;">
+                            {% else %}
+                              No photo available
+                            {% endif %}
+                          </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div id="req_aids_table" style="display: none;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name of the aid</th>
+                    <th>requested user</th>
+                    <th>rate</th>
+                    <th>Manufacturer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for requests in req_aids %}
+                    <tr>
+                        <td>{{ requests.aid.name}}</td>
+                        <td>{{ requests.user }}</td>
+                        <td>{{requests.aid.rate }}</td>
+                        <td>{{requests.aid.manufacturer }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script>
+        function donated_meds(){
+            hideAllTables();
+            var table = document.getElementById("donated_table");
+            toggleTable(table);
+        }
+        function donated_aids(){
+          
+            hideAllTables();
+            var table = document.getElementById("donatedaids_table");
+            toggleTable(table);
+    
+        }
+        function requested_meds() {
+            hideAllTables();
+            var table = document.getElementById("requestedmed_table");
+            toggleTable(table);
+        }
+        function requested_aids(){
+            hideAllTables();
+            var table = document.getElementById("req_aids_table");
+            toggleTable(table);
+        }
+        
+        function hideAllTables() {
+            var tables = document.querySelectorAll("[id$='_table']");
+            tables.forEach(function (table) {
+                table.style.display = "none";
+        });
+    }
+
+        function toggleTable(table) {
+            if (table.style.display === "none") {
+                table.style.display = "block";
+            } 
+            else {
+                table.style.display = "none";
+        }
+    }
+    </script>
+  
 {% endblock %}

@@ -9,7 +9,8 @@ class CustomUser(AbstractUser):
         return self.username
 class Admin(models.Model):
     username = models.CharField(max_length=150, unique=True)
-    password = models.CharField(max_length=128)  
+    password = models.CharField(max_length=128) 
+    email=models.EmailField() 
 
     def __str__(self):
         return self.username
@@ -22,7 +23,7 @@ class medicines(models.Model):
     contents=models.CharField(max_length=250)
     manufacturer=models.CharField(max_length=80)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-
+    
     def __str__(self):
         return self.name
 
