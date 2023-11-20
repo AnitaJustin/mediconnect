@@ -97,14 +97,12 @@ def approve(request):
         obj.save()  
         if table=="req_med":
             user_mail=obj.user.email
-            from_email = 'anitajustin007@gmail.com'
-            send_mail("Request from Mediconnect","We are happy to help you.\nWe have accepted your request.\nMedicine:"+obj.medicine+"\nQuantity"+obj.quantity,from_email,[user_mail],html_message=None)
+            from_email = 'mediconnect007@gmail.com'
+            send_mail("Request from Mediconnect",f"We are happy to help you.\nWe have accepted your request.\nMedicine:{obj.medicine}\nQuantity{obj.quantity}",from_email,[user_mail],html_message=None)
         if table=="saving_request":
             user_mail=obj.user.email
-            from_email = 'anitajustin007@gmail.com'
-            send_mail("Request from Mediconnect","We are happy to help you.\nWe have accepted your request.\nEquipment"+obj.aid.name+"\nrate:"+obj.aid.rate,from_email,[user_mail],html_message=None)
-
-    
+            from_email = 'mediconnect007@gmail.com'
+            send_mail("Request from Mediconnect",f"We are happy to help you.\nWe have accepted your request.\nEquipment{obj.aid.name}\nrate:{obj.aid.rate}",from_email,[user_mail],html_message=None)
     return redirect('admin_dashboard')
 
 def remove(request):
@@ -188,7 +186,7 @@ def saving_req(request):
     return redirect('dashboard')
 def SendMailToAdmin(subject,message):
    
-    from_email = 'anitajustin007@gmail.com'
+    from_email = 'mediconnect007@gmail.com'
     admin_email = 'anitajustinc@gmail.com'  # Replace with the actual admin email
     send_mail(subject, message, from_email, [admin_email], fail_silently=False)
 
