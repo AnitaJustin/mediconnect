@@ -7,6 +7,18 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = CustomUser
         fields = ['username', 'email', 'password1', 'password2', 'ph_no', 'address']
+        error_messages = {
+            'username': {
+                'required': 'Username is required.',
+            },
+            'password1': {
+                'required': 'Password is required.',
+            },
+            'password2': {
+                'required': 'Password confirmation is required.',
+                'password_mismatch': 'The two passwords do not match.',
+            },
+        }
 
 class SignInForm(forms.Form):
     username = forms.CharField()

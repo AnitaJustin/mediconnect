@@ -82,10 +82,10 @@ def admin_dashboard(request):
     
     donated_meds=medicines.objects.filter(removed="False")
     donated_aids=OtherAids.objects.filter(removed="False")
-    reques_med=req_med.objects.filter(removed="False")
+    request_med=req_med.objects.filter(removed="False")
     req_aids=saving_request.objects.filter(removed="False")
 
-    return render(request,"admin_dashboard.html",{'donated_meds':donated_meds,'donated_aids':donated_aids,'reques_med':reques_med,'req_aids':req_aids})
+    return render(request,"admin_dashboard.html",{'donated_meds':donated_meds,'donated_aids':donated_aids,'req_med':request_med,'req_aids':req_aids})
 
 def approve(request):
     if request.method=='GET':
@@ -98,11 +98,11 @@ def approve(request):
         if table=="req_med":
             user_mail=obj.user.email
             from_email = 'mediconnect007@gmail.com'
-            send_mail("Request from Mediconnect",f"We are happy to help you.\nWe have accepted your request.\nMedicine:{obj.medicine}\nQuantity{obj.quantity}",from_email,[user_mail],html_message=None)
+            send_mail("Request from Mediconnect",f"We are happy to help you.\nWe have accepted your request.\nMedicine : {obj.medicine}\nQuantity : {obj.quantity}",from_email,[user_mail],html_message=None)
         if table=="saving_request":
             user_mail=obj.user.email
             from_email = 'mediconnect007@gmail.com'
-            send_mail("Request from Mediconnect",f"We are happy to help you.\nWe have accepted your request.\nEquipment{obj.aid.name}\nrate:{obj.aid.rate}",from_email,[user_mail],html_message=None)
+            send_mail("Request from Mediconnect",f"We are happy to help you.\nWe have accepted your request.\nEquipment : {obj.aid.name}\nRate : {obj.aid.rate}",from_email,[user_mail],html_message=None)
     return redirect('admin_dashboard')
 
 def remove(request):

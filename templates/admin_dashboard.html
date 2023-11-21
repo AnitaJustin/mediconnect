@@ -90,12 +90,12 @@
                     <th>Disease</th>
                     <th>dosage</th>
                     <th>Manufacturer</th>
-                    <th>Expiry Date </th>
+                    <th>Prescription Photo </th>
                     <th>Contents</th>
                 </tr>
             </thead>
             <tbody>
-                {% for requests in requested_meds %}
+                {% for requests in req_med %}
                     <tr>
                         <td>{{ requests.medicine }}</td>
                         <td>{{requests.quantity }}</td>
@@ -110,13 +110,13 @@
                           </td>
                           <td>
                             {% if not requests.approved %}
-                                <button id="approve_{{ requests.id }}" onclick="approve('{{ requests.id }}','req_aids')">Approve</button>
+                                <button id="approve_{{ requests.id }}" onclick="approve('{{ requests.id }}','req_med')">Approve</button>
                             {% else %}
                                 Approved
                             {% endif %}
                         </td>
                         <td>
-                            <button id="remove_{{ requests.id }}" onclick="remove('{{ requests.id }}','req_aids')">Remove</button>
+                            <button id="remove_{{ requests.id }}" onclick="remove('{{ requests.id }}','req_med')">Remove</button>
                         </td>
                     </tr>
                 {% endfor %}

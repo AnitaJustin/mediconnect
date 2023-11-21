@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +12,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: rgb(25, 141, 147);
+            background-color:rgba(22, 73, 39, 0.8);
             padding: 10px;
         }
 
@@ -37,18 +38,103 @@
             margin-left: 20px;
 
         }
-        
+        body {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    font-family: 'Bahnschrift Light', sans-serif;
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    /* height: 100vh; */
+}
+
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height:100%;
+        z-index: -1;
+        background-image: url('{% static "images/common.png" %}');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        filter: blur(0px); /* Adjust the blur radius as needed */
+    }
+    .signup {
+  background-color:  rgb(69, 126, 56);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+  margin: auto; /* Center the form horizontally */
+}
+
+.signup h2 {
+  color: rgb(0, 0, 0);
+  margin-bottom: 5px;
+  font-size: 28px;
+}
+
+.signup form {
+  margin-top: 5px;
+}
+
+.signup input {
+  padding: 10px;
+  border: 1px solid rgb(57, 165, 93);
+  margin-bottom: 2px;
+  width: 100%; /* Make the input fields fill the available width */
+}
+
+.signup table {
+        width: 90%;
+        margin-top: 10px;
+    }
+
+.signup button {
+  background-color: #095a28;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
     </style>
 </head>
 <body>
     <div class="top-bar">
         <div class="logo">MEDICONNECT</div>
-</div>
+        </div>
+<!-- <div class="signup">
     <h2>Sign Up</h2>
     <form method="post" action="{% url 'signup' %}">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Sign Up</button>
     </form>
+    </div> -->
+    <div class="signup">
+        <h2>Sign Up</h2>
+        <form method="post" action="{% url 'signup' %}">
+            {% csrf_token %}
+            <table>
+                
+                {% for field in form %}
+                    <tr>
+                        <td>{{ field.label_tag }}</td>
+                        <td>{{ field }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
 </body>
 </html>

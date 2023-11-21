@@ -1,4 +1,4 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +12,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: rgb(25, 141, 147);
+            background-color: rgba(22, 73, 39, 0.8);
             padding: 10px;
         }
 
@@ -26,7 +26,7 @@
         /* Button style */
         .button {
             background-color: rgb(206, 210, 222);
-            border: 2px solid black;
+            border: 2px solid rgb(255, 255, 255);
             color: black;
             text-align: center;
             font-size: 16px;
@@ -38,11 +38,22 @@
             margin-left: 20px;
 
         }
+        body {
+        background-image: url('{% static "images/common.png" %}');
+        background-size: cover; /* Adjust as needed */
+        background-position: center; /* Adjust as needed */
+        background-repeat: no-repeat;
+        margin: 0; /* Remove default margin to ensure the image covers the entire body */
+        padding: 0; /* Remove default padding */
+        font-family: 'Bahnschrift Light', sans-serif;
+        
+    }
         
     </style>
 </head>
 <body>
     <div class="top-bar">
+        <div><button onclick="back()"><img style="height: 25px;"src='{% static "images/back.png" %}'></button></div>
         <div class="logo">MEDICONNECT</div>
    
     <div>
@@ -52,6 +63,9 @@
 <script>
     function signout(){
         window.location.href = "/signout";
+    }
+    function back(){
+        window.history.back();
     }
 </script>
     {% block content %}
