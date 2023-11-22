@@ -10,7 +10,10 @@ from django.apps import apps
 
 def homepage(request):
     return render(request,"homepage.html")
-
+def about(request):
+    return render(request,"about.html")
+def contact(request):
+    return render(request,"contact.html")
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)

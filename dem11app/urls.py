@@ -17,6 +17,8 @@ urlpatterns = [
     path('admin_dashboard/approve',approve,name="approve"),
     path('admin_dashboard/remove',remove,name="remove"),
     path('signout/',signout,name="signout"),
+    path('about/',about,name='about'),
+    path('contact/',contact,name='contact'),
 
 
 

@@ -1,13 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends "main.html" %}
+
+{% block content %}
     
+<style>
+  .aids {
+background-color:  rgb(31, 126, 45);
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+text-align: center;
+max-width: 800px;
+width: 100%;
+margin: auto; /* Center the form horizontally */
+}
+
+.aids h2 {
+color: rgb(0, 0, 0);
+margin-bottom: 5px;
+font-size: 35px;
+}
+
+.aids form {
+margin-top: 5px;
+}
+
+.aids input {
+padding: 10px;
+border: 1px solid rgb(57, 165, 93);
+margin-bottom: 2px;
+width: 100%; /* Make the input fields fill the available width */
+}
+
+.aids table {
+      width: 90%;
+      margin-top: 10px;
+  }
+
+.aids button {
+background-color: #095a28;
+color: #fff;
+padding: 10px 20px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+}
+
+
+  </style>
+
 
     {% if messages %}   
     <div id="myModal" class="modal" style="
@@ -16,7 +56,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background-color: #dd9a4f;
+        background-color: #34a768;
         color: white;
         padding: 20px;
         z-index: 1;
@@ -29,7 +69,8 @@
         <p id="modal-content"></p>
     </div>
 {% endif %}
-
+<br><br><br>
+<div class="aids">
     <h1>Available equipments</h1>
     <table>
         <thead>
@@ -55,13 +96,14 @@
                   No photo available
                 {% endif %}
               </td>
-              <td><button onclick="req('{{aid.id}}')">contact</button></td>
+              <td><button onclick="req('{{aid.id}}')">Request</button></td>
             </tr>
           {% endfor %}
         </tbody>
       </table>
-
-      <script>
+   
+        </div>
+        <script>
         function req(aid){
             window.location.href= "/saving_req?id="+encodeURIComponent(aid);
         }
@@ -99,5 +141,4 @@
     {% endfor %}
         };
       </script>
-    </body>
-</html>
+{% endblock %}

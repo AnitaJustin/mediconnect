@@ -2,10 +2,65 @@
 {% extends "main.html" %}
 
 {% block content %}
-    <h2>request Form</h2>
+<style>
+    .req_med {
+  background-color:  rgb(69, 126, 56);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+  margin: auto; /* Center the form horizontally */
+}
+
+.req_med h2 {
+  color: rgb(0, 0, 0);
+  margin-bottom: 5px;
+  font-size: 28px;
+}
+
+.req_med form {
+  margin-top: 5px;
+}
+
+.req_med input {
+  padding: 10px;
+  border: 1px solid rgb(57, 165, 93);
+  margin-bottom: 2px;
+  width: 100%; /* Make the input fields fill the available width */
+}
+
+.req_med table {
+        width: 90%;
+        margin-top: 10px;
+    }
+
+.req_med button {
+  background-color: #095a28;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+    </style>
+<br><br><br>
+<div class="req_med">
+    <h2>Request Form</h2>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
+    <table>
+        {% for field in form %}
+            <tr>
+                <td>{{ field.label_tag }}</td>
+                <td>{{ field }}</td>
+            </tr>
+        {% endfor %}
+    </table>
     <button type="submit">Submit</button>
 </form>
+</div>
 {% endblock %}

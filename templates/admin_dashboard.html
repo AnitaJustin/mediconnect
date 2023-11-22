@@ -1,11 +1,71 @@
-{% extends "main.html" %}
+ {% extends "main.html" %}
+ {% block content %}
+ <style>
+ #sidebar {
+    position: fixed;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #165A27;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 20px;
+    color: #fff;
+    text-align: center;
+}
 
-{% block content %}
-<h1>Welcome</h1>
-<button onclick="donated_meds()">DONATED MEDICINES</button>
+#sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #ffcc00;
+    display: block;
+    transition: 0.3s;
+}
+
+#sidebar a:hover {
+    color: #ffffff;
+}
+
+#main {
+    transition: margin-left 0.5s;
+    padding: 16px;
+}
+
+#menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+    /* position: fixed; */
+    top: 20px;
+    left: 20px;
+    color: #fff;
+    z-index: 1;
+}
+table{
+  background-color: rgb(69, 126, 56);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 70%;
+  margin: auto;
+  border: 1;
+}
+</style>
+<div id="menu-icon" onclick="toggleSidebar()">☰</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+    <a href="#" onclick="donated_meds()">Donated Medicines</a>
+    <a href="#" onclick="donated_aids()">Donated Aids</a>
+    <a href="#" onclick="requested_meds()">Requested Medicines</a>
+    <a href="#" onclick="requested_aids()">Requested Aids</a>
+</div>
+
+<!-- <button onclick="donated_meds()">DONATED MEDICINES</button>
 <button onclick="donated_aids()">DONATED AIDS</button>
 <button onclick="requested_meds()">REQUESTED MEDICINES</button>
-<button onclick="requested_aids()">REQUESTED AIDS</button>
+<button onclick="requested_aids()">REQUESTED AIDS</button> -->
     <div id="donated_table" style="display: none;">
         <table>
             <thead>
@@ -62,7 +122,7 @@
                         <td>{{donations.manufacturer }}</td>
                         <td>
                             {% if donations.current_photo %}
-                              <img src="{{ donations.current_photo.url }}" alt="{{ donations.name }} Photo" style="max-width: 250px; max-height: 250px;">
+                              <img src="{{ donations.current_photo.url }}" alt="{{ donations.name }} Photo" style="width: 150px; height: 150px;">
                             {% else %}
                               No photo available
                             {% endif %}
@@ -83,7 +143,7 @@
         </table>
     </div>
     <div id="requestedmed_table" style="display: none;">
-        <table>
+        <table border="1">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -92,6 +152,7 @@
                     <th>Manufacturer</th>
                     <th>Prescription Photo </th>
                     <th>Contents</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -103,7 +164,7 @@
                         <td>{{requests.user }}</td>
                         <td>
                             {% if requests.prescription_photo %}
-                              <img src="{{ requests.prescription_photo.url }}" alt="{{ requests.medicine }} Photo" style="max-width: 250px; max-height: 250px;">
+                              <img src="{{ requests.prescription_photo.url }}" alt="{{ requests.medicine }} Photo" style="width: 150px; height: 150px;">
                             {% else %}
                               No photo available
                             {% endif %}
@@ -200,6 +261,157 @@
         function remove(id,table){
             window.location.href = `/admin_dashboard/remove?id=${id}&table=${table}`;
         }
+        function toggleSidebar() {
+        var sidebar = document.getElementById("sidebar");
+        var main = document.getElementById("main");
+
+        if (sidebar.style.left === "0px") {
+            sidebar.style.left = "-250px";
+            main.style.marginLeft = "0";
+        } else {
+            sidebar.style.left = "0px";
+            main.style.marginLeft = "250px";
+        }
+    }
+    // Function to show the sidebar
+    function showSidebar() {
+        document.getElementById("sidebar").style.left = "0";
+        document.getElementById("main").style.marginLeft = "250px";
+    }
+
+    // Function to hide the sidebar
+    function hideSidebar() {
+        document.getElementById("sidebar").style.left = "-250px";
+        document.getElementById("main").style.marginLeft = "0";
+    }
     </script>
-  
-{% endblock %}
+  {% endblock %}
+<!-- 
+
+<style>
+    /* Add some styling to the sidebar */
+    #sidebar {
+        position: fixed;
+        left: -250px;
+        width: 250px;
+        height: 100%;
+        background-color: #165A27;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 20px;
+        color: #fff;
+        text-align: center;
+    }
+
+    #sidebar a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 18px;
+        color: #ffcc00;
+        display: block;
+        transition: 0.3s;
+    }
+
+    #sidebar a:hover {
+        color: #ffffff;
+    }
+
+    #main {
+        transition: margin-left 0.5s;
+        padding: 16px;
+    }
+
+    #menu-icon {
+        font-size: 24px;
+        cursor: pointer;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        color: #fff;
+        z-index: 1;
+    }
+</style>
+
+
+<div id="menu-icon" onclick="toggleSidebar()">☰</div>
+
+
+<div id="sidebar">
+    <a href="#" onclick="donated_meds()">Donated Medicines</a>
+    <a href="#" onclick="donated_aids()">Donated Aids</a>
+    <a href="#" onclick="requested_meds()">Requested Medicines</a>
+    <a href="#" onclick="requested_aids()">Requested Aids</a>
+</div>
+
+
+<div id="main">
+    <h1>Welcome</h1>
+    
+</div>
+
+<script>
+    // Function to show the sidebar
+    function showSidebar() {
+        document.getElementById("sidebar").style.left = "0";
+        document.getElementById("main").style.marginLeft = "250px";
+    }
+
+    // Function to hide the sidebar
+    function hideSidebar() {
+        document.getElementById("sidebar").style.left = "-250px";
+        document.getElementById("main").style.marginLeft = "0";
+    }
+
+    // Function to handle button clicks
+    function donated_meds() {
+        hideAllTables();
+        var table = document.getElementById("donated_table");
+        toggleTable(table);
+    }
+
+    function donated_aids() {
+        hideAllTables();
+        var table = document.getElementById("donatedaids_table");
+        toggleTable(table);
+    }
+
+    function requested_meds() {
+        hideAllTables();
+        var table = document.getElementById("requestedmed_table");
+        toggleTable(table);
+    }
+    function toggleSidebar() {
+        var sidebar = document.getElementById("sidebar");
+        var main = document.getElementById("main");
+
+        if (sidebar.style.left === "0px") {
+            sidebar.style.left = "-250px";
+            main.style.marginLeft = "0";
+        } else {
+            sidebar.style.left = "0px";
+            main.style.marginLeft = "250px";
+        }
+    }
+    function requested_aids() {
+        hideAllTables();
+        var table = document.getElementById("req_aids_table");
+        toggleTable(table);
+    }
+
+    function hideAllTables() {
+        var tables = document.querySelectorAll("[id$='_table']");
+        tables.forEach(function (table) {
+            table.style.display = "none";
+        });
+    }
+
+    function toggleTable(table) {
+        if (table.style.display === "none") {
+            table.style.display = "block";
+        } else {
+            table.style.display = "none";
+        }
+    }
+</script>
+
+ -->

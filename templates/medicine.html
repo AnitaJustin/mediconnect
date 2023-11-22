@@ -1,10 +1,66 @@
 {% extends "main.html" %}
 
 {% block content %}
+<style>
+    .donate_med {
+  background-color:  rgb(69, 126, 56);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+  margin: auto; /* Center the form horizontally */
+}
+
+.donate_med h2 {
+  color: rgb(0, 0, 0);
+  margin-bottom: 5px;
+  font-size: 28px;
+}
+
+.donate_med form {
+  margin-top: 5px;
+}
+
+.donate_med input {
+  padding: 10px;
+  border: 1px solid rgb(57, 165, 93);
+  margin-bottom: 2px;
+  width: 100%; /* Make the input fields fill the available width */
+}
+
+.donate_med table {
+        width: 90%;
+        margin-top: 10px;
+    }
+
+.donate_med button {
+  background-color: #095a28;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+    </style>
+<br><br><br>
+<div class="donate_med">
     <h2>Donation Form</h2>
     <form method="post" action="{% url 'medicine' %}">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">submit</button>
+        <table>
+            {% for field in form %}
+                <tr>
+                    <td>{{ field.label_tag }}</td>
+                    <td>{{ field }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <button type="submit">Submit</button>
+
     </form>
+    </div>
 {% endblock %}
