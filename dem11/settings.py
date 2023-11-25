@@ -140,3 +140,4 @@ DEFAULT_FROM_EMAIL = 'mediconnec007@gmail.com'
 
 MEDIA_ROOT = BASE_DIR / "media"  # or any other path where you want to store media files
 MEDIA_URL = '/media/'
+

@@ -1,6 +1,7 @@
 # yourappname/urls.py
 from django.urls import path
 from .views import *
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path("",homepage,name="homepage"),
@@ -16,10 +17,10 @@ urlpatterns = [
     path('admin_dashboard/',admin_dashboard,name="admin_dashboard"),
     path('admin_dashboard/approve',approve,name="approve"),
     path('admin_dashboard/remove',remove,name="remove"),
-    path('signout/',signout,name="signout"),
+    path('signout/', LogoutView.as_view(next_page='homepage') ,name='signout'),
     path('about/',about,name='about'),
     path('contact/',contact,name='contact'),
-
+    path('get_medicines/<str:disease>/',get_medicines, name='get_medicines'),
 
 
 

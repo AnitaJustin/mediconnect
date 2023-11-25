@@ -39,13 +39,16 @@
 
         }
         body {
-        background-image: url('{% static "images/common.png" %}');
-        background-size: cover; /* Adjust as needed */
-        background-position: center; /* Adjust as needed */
-        background-repeat: no-repeat;
-        margin: 0; /* Remove default margin to ensure the image covers the entire body */
-        padding: 0; /* Remove default padding */
-        font-family: 'Bahnschrift Light', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image: url('{% static "images/trial.png" %}');
+            background-color: rgb(230, 222, 211);
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;
+            font-family: 'Bahnschrift Light', sans-serif;
+        
         
     }
         
@@ -53,7 +56,7 @@
 </head>
 <body>
     <div class="top-bar">
-        <div><button onclick="back()"><img style="height: 25px;"src='{% static "images/back.png" %}'></button></div>
+        <!-- <div><button onclick="back()"><img style="height: 25px;"src='{% static "images/back.png" %}'></button></div> -->
         <div class="logo">MEDICONNECT</div>
    
     <div>

@@ -1,9 +1,9 @@
-{% extends "main.html" %}
+{% extends "userdashboard.html" %}
 
 {% block content %}
 <style>
     .donate_med {
-  background-color:  rgb(69, 126, 56);
+  background-color:  rgba(22, 73, 39,0.9);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
@@ -14,13 +14,15 @@
 }
 
 .donate_med h2 {
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   margin-bottom: 5px;
   font-size: 28px;
 }
 
 .donate_med form {
   margin-top: 5px;
+  color: rgb(255, 255, 255);
+
 }
 
 .donate_med input {
@@ -36,31 +38,73 @@
     }
 
 .donate_med button {
-  background-color: #095a28;
-  color: #fff;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  font-size: 15px;
+  font-weight: 1;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
-
-
-    </style>
+</style>
 <br><br><br>
 <div class="donate_med">
     <h2>Donation Form</h2>
     <form method="post" action="{% url 'medicine' %}">
         {% csrf_token %}
         <table>
-            {% for field in form %}
-                <tr>
-                    <td>{{ field.label_tag }}</td>
-                    <td>{{ field }}</td>
-                </tr>
-            {% endfor %}
+          <tr>
+            <td>{{ form.disease.label_tag }}</td>
+            <td>{{ form.disease }}
+                <input type="text" id="other-disease-input" name="other_disease" style="display: none;">
+                <!-- {{ form.other_disease }} -->
+            </td>
+          </tr>
+          <tr>
+            <td>Medicine</td>
+            <td>{{ form.name }}</td>
+          </tr>
+          <tr>
+            <td>{{ form.dosage.label_tag }}</td>
+            <td>{{ form.dosage }}</td>
+          </tr>
+          <tr>
+            <td>{{ form.quantity.label_tag }}</td>
+            <td>{{ form.quantity }}</td>
+          </tr>
+          <tr>
+            <td>{{ form.expirydate.label_tag }}</td>
+            <td>{{ form.expirydate }}</td>
+          </tr>
+          <tr>
+            <td>{{ form.contents.label_tag }}</td>
+            <td>{{ form.contents }}</td>
+          </tr>
+          <tr>
+            <td>{{ form.manufacturer.label_tag }}</td>
+            <td>{{ form.manufacturer }}</td>
+          </tr>
         </table>
         <button type="submit">Submit</button>
-
     </form>
-    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<Script>
+    $(document).ready(function () {
+        var diseaseSelect = $('#id_disease');
+        var otherDiseaseInput = $('#other-disease-input');
+
+        diseaseSelect.change(function () {
+            var selectedDisease = $(this).val();
+
+            if (selectedDisease === 'Other') {
+                otherDiseaseInput.show();
+            } else {
+                otherDiseaseInput.hide();
+            }
+        });
+    });
+</Script>
 {% endblock %}

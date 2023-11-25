@@ -1,10 +1,11 @@
-{% extends "main.html" %}
+{% extends "userdashboard.html" %}
 
 {% block content %}
     
 <style>
   .aids {
-background-color:  rgb(31, 126, 45);
+ background-color:  rgba(22, 73, 39,0.9); 
+
 padding: 20px;
 border-radius: 10px;
 box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
@@ -12,21 +13,25 @@ text-align: center;
 max-width: 800px;
 width: 100%;
 margin: auto; /* Center the form horizontally */
+color: rgb(255, 249, 249);
+
 }
 
 .aids h2 {
-color: rgb(0, 0, 0);
+color: rgb(255, 249, 249);
 margin-bottom: 5px;
 font-size: 35px;
 }
 
 .aids form {
 margin-top: 5px;
+color: rgb(255, 249, 249);
+
 }
 
 .aids input {
 padding: 10px;
-border: 1px solid rgb(57, 165, 93);
+border: 1px solid rgb(250, 250, 250);
 margin-bottom: 2px;
 width: 100%; /* Make the input fields fill the available width */
 }
@@ -37,8 +42,8 @@ width: 100%; /* Make the input fields fill the available width */
   }
 
 .aids button {
-background-color: #095a28;
-color: #fff;
+background-color: #eef4f1;
+color: rgb(10, 0, 0);
 padding: 10px 20px;
 border: none;
 border-radius: 5px;
@@ -48,31 +53,9 @@ cursor: pointer;
 
   </style>
 
-
-    {% if messages %}   
-    <div id="myModal" class="modal" style="
-        display: none;
-        position: relative;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: #34a768;
-        color: white;
-        padding: 20px;
-        z-index: 1;
-    ">
-        <span class="close" onclick="closeModal()" style="color: white;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;">
-        &times;</span>
-        <p id="modal-content"></p>
-    </div>
-{% endif %}
-<br><br><br>
 <div class="aids">
     <h1>Available equipments</h1>
-    <table>
+    <table border="1">
         <thead>
           <tr>
             <th>Name</th>
@@ -91,7 +74,7 @@ cursor: pointer;
               <td>{{ aid.manufacturer }}</td>
               <td>
                 {% if aid.current_photo %}
-                  <img src="{{ aid.current_photo.url }}" alt="{{ aid.name }} Photo" style="max-width: 250px; max-height: 250px;">
+                  <img src="{{ aid.current_photo.url }}" alt="{{ aid.name }} Photo" style="width: 100px; height: 100px;">
                 {% else %}
                   No photo available
                 {% endif %}
@@ -107,38 +90,30 @@ cursor: pointer;
         function req(aid){
             window.location.href= "/saving_req?id="+encodeURIComponent(aid);
         }
-        function displayModal(message) {
-            var modal = document.getElementById('myModal');
-            var modalContent = document.getElementById('modal-content');
-            modalContent.innerHTML = message;
-            modal.style.display = 'block';
-        }
+    //     function displayModal(message) {
+    //         var modal = document.getElementById('myModal');
+    //         var modalContent = document.getElementById('modal-content');
+    //         modalContent.innerHTML = message;
+    //         modal.style.display = 'block';
+    //     }
 
-        // Function to close the modal
-        function closeModal() {
-            var modal = document.getElementById('myModal');
+    //     // Function to close the modal
+    //     function closeModal() {
+    //         var modal = document.getElementById('myModal');
 
-            modal.style.display = 'none';
-        }
+    //         modal.style.display = 'none';
+    //     }
 
-        // Include this at the end of your body
-        window.onload = function() {
-            // Display the modal on page load if there is a message
-            // var alertMessage = "{{ messages }}";
-            // if (alertMessage) {
-            //     displayModal(alertMessage);
-            //     // Hide the modal after 5 seconds (adjust as needed)
-            //     setTimeout(closeModal, 5000);
-            // }
-
-            {% for message in messages %} 
-        var alertMessage = "{{ message }}";
-        if (alertMessage) {
-            displayModal(alertMessage);
-            // Hide the modal after 5 seconds (adjust as needed)
-            setTimeout(closeModal, 5000);
-        }
-    {% endfor %}
-        };
+    //     // Include this at the end of your body
+    //     window.onload = function() {
+    //         {% for message in messages %} 
+    //     var alertMessage = "{{ message }}";
+    //     if (alertMessage) {
+    //         displayModal(alertMessage);
+    //         // Hide the modal after 5 seconds (adjust as needed)
+    //         setTimeout(closeModal, 5000);
+    //     }
+    // {% endfor %}
+    //     };
       </script>
 {% endblock %}

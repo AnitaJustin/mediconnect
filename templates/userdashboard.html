@@ -1,0 +1,234 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEDICONNECT</title>
+    <style>
+        /* Top bar styles */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(22, 73, 39, 0.8);
+            padding: 10px;
+        }
+
+        /* Logo style */
+        .logo {
+            color: white;
+            font-size: 35px;
+            padding: 10px;
+        }
+
+        /* Button style */
+        .button {
+            background-color: rgb(206, 210, 222);
+            border: 2px solid rgb(255, 255, 255);
+            color: black;
+            text-align: center;
+            font-size: 16px;
+            border-radius: 12px;
+            width: 120px;
+            height: 45px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 20px;
+
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image: url('{% static "images/trial.png" %}');
+            background-color: rgb(230, 222, 211);
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;
+            font-family: 'Bahnschrift Light', sans-serif;
+        
+        
+        }
+        #sidebar {
+            position: fixed;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: rgba(22, 73, 39, 0.8);
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 20px;
+            color: #fff;
+            text-align: center;
+        }
+
+        #sidebar a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #ffcc00;
+            display: block;
+            transition: 0.3s;
+        }
+
+        #sidebar a:hover {
+            color: #ffffff;
+        }
+
+        #main {
+            transition: margin-left 0.5s;
+            padding: 16px;
+        }
+
+        #menu-icon {
+            font-size: 40px;
+            cursor: pointer;
+            /* position: fixed; */
+            top: 20px;
+            left: 20px;
+            color: rgb(0, 0, 0);
+            z-index: 1;
+        }
+
+        .subelements{
+            display: none;
+        }
+                
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <!-- <div><button onclick="back()"><img style="height: 25px;"src='{% static "images/back.png" %}'></button></div> -->
+        <div class="logo">MEDICONNECT</div>
+        <div>
+            <button class="button" onclick="signout()"> Sign Out</button>
+        </div>
+    </div>
+    {% if messages %}
+        <div id="myModal" class="modal" style="
+            display: none;
+            position: relative;
+            left: 50%;
+            font-size: 24px;
+            transform: translate(-50%, -50%);
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+            padding: 20px;
+            z-index: 1;">
+            <span class="close" onclick="closeModal()" style="color: rgb(0, 0, 0);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;">
+            &times;</span>
+            <p id="modal-content"></p>
+        </div>
+    {% endif %}
+    <div id="menu-icon" onclick="toggleSidebar()">☰</div>
+    <div id="sidebar">
+        <a href="#" onclick="donate()">Donate</a>
+        <div id="subelements_donate" class="subelements" style="display: none;">
+        <a href="#" onclick="donateMedicine()">Medicine</a>
+        <a href="#" onclick="donateAids()">Other Aids</a>
+        </div>
+        <a href="#" onclick="receiver()" >Request</a>
+        <div id="subelements_receiver" class="subelements">
+            <a href="#" onclick="receiveMedicine()">Medicine</a>
+            <a href="#" onclick="receiveAids()">Other Aids</a>
+        </div>
+    </div>
+
+
+    <script>
+        function signout(){
+            window.location.href = "/signout";
+        }
+        function donateMedicine() {
+                window.location.href = "/medicine";
+            }
+            function donateAids() {
+                window.location.href ="/aids";
+            }
+            function donate() {
+                toggleSubElements("subelements_donate");
+            }
+
+            function receiver() {
+                toggleSubElements("subelements_receiver");
+            }
+
+            function toggleSubElements(subElementId) {
+                var subElements = document.getElementById(subElementId);
+
+                if (subElements.style.display === "none") {
+                    subElements.style.display = "flex";
+                } else {
+                    subElements.style.display = "none";
+                }
+            }
+
+            function receiveMedicine(){
+                window.location.href = "/request_medicine";
+            }
+            function receiveAids(){
+                window.location.href = "/request_aid";
+            }
+            
+            function previous() {
+                window.location.href = "";
+            }
+
+            function closeAlert() {
+                document.getElementById('alert-box').style.display = 'none';
+            }
+            function displayModal(message) {
+                var modal = document.getElementById('myModal');
+                var modalContent = document.getElementById('modal-content');
+                modalContent.innerHTML = message;
+                modal.style.display = 'block';
+            }
+            function closeModal() {
+                var modal = document.getElementById('myModal');
+
+                modal.style.display = 'none';
+            }
+            function toggleSidebar() {
+                var sidebar = document.getElementById("sidebar");
+                var main = document.getElementById("main");
+
+                if (sidebar.style.left === "0px") {
+                    sidebar.style.left = "-250px";
+                    main.style.marginLeft = "0";
+                } else {
+                    sidebar.style.left = "0px";
+                    main.style.marginLeft = "250px";
+                }
+            }
+        // Function to show the sidebar
+            function showSidebar() {
+                document.getElementById("sidebar").style.left = "0";
+                document.getElementById("main").style.marginLeft = "250px";
+            }
+
+        // Function to hide the sidebar
+            function hideSidebar() {
+                document.getElementById("sidebar").style.left = "-250px";
+                document.getElementById("main").style.marginLeft = "0";
+            }
+            window.onload = function() {
+                {% for message in messages %} 
+            var alertMessage = "{{ message }}";
+            if (alertMessage) {
+                displayModal(alertMessage);
+                // Hide the modal after 5 seconds (adjust as needed)
+                setTimeout(closeModal, 5000);
+            }
+                {% endfor %}
+            };
+</script>
+    {% block content %}
+    {% endblock %}
+    </body>
+    </html>
+
