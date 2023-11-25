@@ -127,7 +127,6 @@ def remove(request):
 def medicine(request):
     if request.method=='POST':
         form=MedicineForm(request.POST)
-        
         if form.is_valid():
             selected_disease = request.POST.get('disease')
             other_disease = request.POST.get('other_disease')
@@ -135,21 +134,15 @@ def medicine(request):
                 disease = other_disease
             else:
                 disease = selected_disease
-
-            print(selected_disease,other_disease)
-
             medicine=form.save(commit=False)
             medicine.user=request.user
             medicine.disease=disease
-
-            existing_medicine = medicines.objects.filter(name=medicine.name, disease=medicine.disease).first()
-
+            existing_medicine = medicines.objects.filter(name__iexact=medicine.name, disease__iexact=medicine.disease).first()
             if existing_medicine:
                 existing_medicine.quantity += medicine.quantity
                 existing_medicine.save()
             else:
                 medicine.save()
-
             SendMailToAdmin('New Medicine Submission',get_medicine_message(medicine))
             SendMailToUser('Thankyou for Your Donation',get_medicine_user_message(medicine),medicine.user.email)
             success(request,'Donation submitted successfully.')
