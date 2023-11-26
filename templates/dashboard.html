@@ -58,19 +58,34 @@ table{
 .subelements{
     display: none;
 }
+.alert {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #dce3e1;
+            color: #721c24;
+            padding: 10px;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            display: none;
+        }
 </style>
 {% if messages %} 
 <div id="myModal" class="modal" style="
-    display: none;
-    position: relative;
-    left: 50%;
-    width: 70%;
-    transform: translate(-50%, -50%);
-    background-color: #ffffff;
-    color: rgb(0, 0, 0);
-    padding: 5pxpx;
-    z-index: 1;
-    font-size: 1.5rem;
+        position: fixed;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #dce3e1;
+        color: #721c24;
+        padding: 10px;
+        text-align: center;
+        width: 25%;
+        height: 10%;
+        border: 1px solid #f5c6cb;
+        border-radius: 5px;
+        display: none;
     ">
     <span class="close" onclick="closeModal()" style="color: rgb(0, 0, 0);
     float: right;

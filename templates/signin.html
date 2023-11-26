@@ -6,7 +6,7 @@
 {% load static %}
 <style>
 .signin {
-  background-color: rgb(69, 126, 56);
+  background-color: rgba(22, 73, 39,0.9);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -17,13 +17,14 @@
 }
 
 .signin h2 {
-  color: #333;
+  color: rgb(255, 250, 250);
   margin-bottom: 20px;
   font-size: 24px;
 }
 
 .signin form {
   margin-top: 10px;
+  color: #dce3e1;
 }
 
 .signin input {
@@ -33,18 +34,29 @@
 }
 
 .signin button {
-  background-color: #095a28;
-  color: #fff;
+  background-color: #cdc3c3;
+  color: rgb(0, 0, 0);
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
+.signin button:hover{
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: bold;
+
+        } 
 
 .signin a {
   display: block;
   margin-top: 10px;
-  color: #333;
+  color: rgb(255, 253, 253);
 }
 .alert {
             position: fixed;

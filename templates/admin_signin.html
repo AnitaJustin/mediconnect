@@ -12,7 +12,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: rgba(22, 73, 39, 0.8);
+            background-color: rgba(22, 73, 39, 0.9);
             padding: 10px;
         }
 
@@ -22,32 +22,27 @@
             font-size: 35px;
             padding: 10px;
         }
-
-        /* Button style */
-        .button {
-            background-color: rgb(206, 210, 222);
-            border: 2px solid black;
-            color: black;
-            text-align: center;
-            font-size: 16px;
-            border-radius: 12px;
-            width: 120px;
-            height: 45px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-left: 20px;
-
+        .home{
+           
+            margin-right: 10px;
         }
+        .home:hover{
+           
+           margin-right: 10px;
+           background-color:rgba(151, 216, 174, 0.9);
+           border-color: rgba(0, 0, 0, 0.9);
+           cursor: pointer;
+       }
+        
+
         body {
-    position: relative;
-    margin: 0;
-    padding: 0;
-    font-family: 'Bahnschrift Light', sans-serif;
-    /* display: flex; */
-    align-items: center;
-    justify-content: center;
-    /* height: 100vh; */
-}
+            position: relative;
+            margin: 0;
+            padding: 0;
+            font-family: 'Bahnschrift Light', sans-serif;
+            align-items: center;
+            justify-content: center;
+        }
 
     body::before {
         content: '';
@@ -61,10 +56,9 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        filter: blur(0px); /* Adjust the blur radius as needed */
     }
 .signin {
-  background-color: rgb(69, 126, 56);
+  background-color: rgba(22, 73, 39,0.9);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -75,35 +69,43 @@
 }
 
 .signin h2 {
-  color: #333;
+  color: rgb(255, 255, 255);
   margin-bottom: 20px;
   font-size: 24px;
 }
 
 .signin form {
   margin-top: 10px;
+  color: #fff;
 }
 
 .signin input {
   padding: 10px;
-  border: 1px solid rgb(57, 165, 93);
+  border: 1px solid rgb(47, 125, 73);
   margin-bottom: 10px;
 }
 
 .signin button {
-  background-color: #095a28;
-  color: #fff;
+  background-color: #9fb6a7;
+  color: rgb(0, 0, 0);
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
-  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
 }
+.signin button:hover{
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: bold;
 
-.signin a {
-  display: block;
-  margin-top: 10px;
-  color: #333;
-}
+        }
+
 .alert {
             position: fixed;
             top: 10px;
@@ -121,6 +123,8 @@
 <body>  
     <div class="top-bar">
         <div class="logo">MEDICONNECT</div>
+        <div ><img src='{% static "images/homes.png" %}' onclick="home()" class="home"></div>
+
 </div>
 <div class="alert" id="alertMessage"></div>
 
@@ -144,6 +148,7 @@
         {% endfor %}
     </div>
 {% endif %}
+<br><br><br>
 <div class="signin">
     <h2>Sign In</h2>
     <form method="post" action="{% url 'admin_signin' %}">
@@ -152,6 +157,11 @@
         <button type="submit">Sign In</button>
     </form>
 </div>
+<script>
+    function home(){
+        window.location.href = "/";
+    }
+</script>
 </body>
 </html>
 

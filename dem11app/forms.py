@@ -51,25 +51,6 @@ class AidsForm(forms.ModelForm):
         model=OtherAids
         fields=['name','age','rate','manufacturer','current_photo']
 
-    
-
-# class Req_med_Form(forms.ModelForm):
-#     class Meta:
-#         model=req_med
-#         fields=['medicine','quantity','disease','prescription_photo']
-#     medicine = forms.ModelChoiceField(
-#         queryset=medicines.objects.all(),
-#         empty_label="Select a Medicine",
-#         to_field_name="name",
-#         widget=forms.Select(attrs={'class': 'form-control'})
-#     )
-    
-#     disease = forms.ModelChoiceField(
-#         queryset=medicines.objects.values_list('disease', flat=True).distinct(),
-#         empty_label="Select a Disease",
-#         to_field_name="disease",
-#         widget=forms.Select(attrs={'class': 'form-control'})
-#     )
 
 class Req_med_Form(forms.ModelForm):
     class Meta:
@@ -89,17 +70,5 @@ class Req_med_Form(forms.ModelForm):
         to_field_name="disease",
         widget=forms.Select(attrs={'class': 'form-control', 'onchange': 'updateMedicineList()'})
     )
-
-    def __init__(self, *args, **kwargs):
-        super(Req_med_Form, self).__init__(*args, **kwargs)
-        # Set a default empty queryset for the medicine field
-        self.fields['medicine'].queryset = medicines.objects.none()
-
-        # If the instance exists (editing an existing req_med), set initial values for medicine and disease
-        if 'instance' in kwargs:
-            instance = kwargs['instance']
-            self.fields['medicine'].initial = instance.medicine
-            self.fields['disease'].initial = instance.disease
-
     class Media:
         js = ('js/req_med_form.js',)

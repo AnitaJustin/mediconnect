@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.apps import apps
 from django.http import JsonResponse
+from .decorators import *
 
 
 def homepage(request):
@@ -74,7 +75,8 @@ def admin_signin(request):
             
             else:
                 info(request,'Invalid Credentials')
-
+        else:
+            form.errors
     else:
         form = AdminForm()
 
@@ -84,7 +86,7 @@ def admin_signin(request):
 def dashboard(request):
     return render(request,"dashboard.html")
 
-@login_required
+@admin_loggedin
 def admin_dashboard(request):
     
     donated_meds=medicines.objects.filter(removed="False")
@@ -182,6 +184,7 @@ def aids(request):
 def request_med(request):
     if request.method=='POST':
         form=Req_med_Form(request.POST,request.FILES)
+        
         if form.is_valid():
             receiver=form.save(commit=False)
             receiver.user=request.user
@@ -191,6 +194,7 @@ def request_med(request):
             SendMailToAdmin('New request Submitted',get_req_med_message(receiver))
             success(request, 'Request submitted successfully.')
             return redirect('dashboard')
+
         
     else:
         form=Req_med_Form()

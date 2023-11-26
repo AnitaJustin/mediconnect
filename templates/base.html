@@ -12,7 +12,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: rgba(22, 73, 39, 0.8);
+            background-color: rgba(22, 73, 39,0.9);
             padding: 10px;
             margin: auto;
         }
@@ -49,6 +49,18 @@
         font-family: 'Bahnschrift Light', sans-serif;
         
     }
+    .home{
+           
+        margin-right: 10px;
+       
+       }
+    .home:hover{
+          
+        margin-right: 10px;
+        background-color:rgba(151, 216, 174, 0.9);
+        border-color: rgba(0, 0, 0, 0.9);
+        cursor: pointer;
+      }
         
     </style>
 </head>
@@ -56,10 +68,12 @@
     <div class="top-bar">
         <!-- <div style="padding: 10px;"><button onclick="back()"><img style="height: 25px;"src='{% static "images/back.png" %}'></button></div> -->
         <div class="logo" style="padding: 10px;">MEDICONNECT</div>
+        <div ><img src='{% static "images/homes.png" %}' onclick="home()" class="home"></div>
+
 </div>
 <script>
-     function back(){
-        window.history.back();
+    function home(){
+        window.location.href = "/";
     }
 </script>
     {% block content %}

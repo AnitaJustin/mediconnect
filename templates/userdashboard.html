@@ -107,16 +107,21 @@
         </div>
     </div>
     {% if messages %}
-        <div id="myModal" class="modal" style="
-            display: none;
-            position: relative;
-            left: 50%;
-            font-size: 24px;
-            transform: translate(-50%, -50%);
-            background-color: #ffffff;
-            color: rgb(0, 0, 0);
-            padding: 20px;
-            z-index: 1;">
+    <div id="myModal" class="modal" style="
+        position: fixed;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #dce3e1;
+        color: #721c24;
+        padding: 10px;
+        text-align: center;
+        width: 25%;
+        height: 10%;
+        border: 1px solid #f5c6cb;
+        border-radius: 5px;
+        display: none;
+        ">
             <span class="close" onclick="closeModal()" style="color: rgb(0, 0, 0);
             float: right;
             font-size: 28px;
@@ -218,12 +223,12 @@
             }
             window.onload = function() {
                 {% for message in messages %} 
-            var alertMessage = "{{ message }}";
-            if (alertMessage) {
-                displayModal(alertMessage);
-                // Hide the modal after 5 seconds (adjust as needed)
-                setTimeout(closeModal, 5000);
-            }
+                var alertMessage = "{{ message }}";
+                if (alertMessage) {
+                    displayModal(alertMessage);
+                    // Hide the modal after 5 seconds (adjust as needed)
+                    setTimeout(closeModal, 5000);
+                }
                 {% endfor %}
             };
 </script>
