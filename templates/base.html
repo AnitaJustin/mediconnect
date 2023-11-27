@@ -40,6 +40,7 @@
 
         }
         body {
+            background-color: rgb(225, 222, 217);
         background-size: cover; /* Adjust as needed */
         background-position: center; /* Adjust as needed */
         background-repeat: no-repeat;
@@ -62,6 +63,27 @@
       }
         
     </style>
+    
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static  'css/bootstrap.css'  %}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
+  <!-- nice select -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
+  <!-- datepicker -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css">
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
 </head>
 <body>
     <div class="top-bar">
@@ -75,6 +97,19 @@
         window.location.href = "/";
     }
 </script>
+</script>
+<!-- jQery -->
+<script src="{% static  'js/jquery-3.4.1.min.js'  %}"></script>
+<!-- bootstrap js -->
+<script src="{% static  'js/bootstrap.js'  %}"></script>
+<!-- nice select -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js" integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
+<!-- owl slider -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<!-- datepicker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<!-- custom js -->
+<script src="{% static  'js/custom.js'  %}"></script>
     {% block content %}
     {% endblock %}
     </body>

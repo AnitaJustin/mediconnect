@@ -565,7 +565,11 @@ a:focus {
       max-width: 100%;
     }
   }
-
+  .heading_container {
+    h1 {
+      color: rgba(22, 73, 39);
+    }
+  }
   .detail-box {
     p {
       color: $textCol;
@@ -651,7 +655,7 @@ a:focus {
     margin-bottom: 45px;
 
     h2 {
-      color: $black;
+      color: rgb(22, 73, 39);
       text-transform: uppercase;
       margin: 0;
 

@@ -406,7 +406,7 @@ a:focus {
 }
 
 .slider_section .detail-box p {
-  color: #6d6d6d;
+  color: #2f2f2f;
 }
 
 .slider_section .detail-box a {
@@ -474,7 +474,7 @@ a:focus {
 }
 
 .about_section .detail-box p {
-  color: #999;
+  color: rgb(64, 64, 64);
   margin-top: 15px;
 }
 
