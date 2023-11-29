@@ -42,7 +42,8 @@
             z-index: 1;
         }
 table{
-  background-color: rgba(22, 73, 39,0.9);
+  background-color: rgba(60, 173, 98, 0.9);
+  border-radius: 10px;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -63,7 +64,7 @@ table{
 </div>
 
     <div id="donated_table" style="display: none;">
-        <table>
+        <table border="1">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -82,7 +83,7 @@ table{
                         <td>{{donations.dosage }}</td>
                         <td>{{donations.manufacturer }}</td>
                         <td>{{donations.expirydate }}</td>
-                        <td>{{donations.Contents }}</td>
+                        <td>{{donations.contents }}</td>
                         <td>
                             {% if not donations.approved %}
                                 <button id="approve_{{ donations.id }}" onclick="approve('{{ donations.id }}','medicines')">Approve</button>
@@ -99,7 +100,7 @@ table{
         </table>
     </div>
     <div id="donatedaids_table" style="display: none;">
-        <table>
+        <table border="1">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -144,10 +145,9 @@ table{
                 <tr>
                     <th>Name</th>
                     <th>Disease</th>
-                    <th>dosage</th>
-                    <th>Manufacturer</th>
+                    <th>Quantity</th>
+                    <th>Requested By</th>
                     <th>Prescription Photo </th>
-                    <th>Contents</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -155,8 +155,8 @@ table{
                 {% for requests in req_med %}
                     <tr>
                         <td>{{ requests.medicine }}</td>
-                        <td>{{requests.quantity }}</td>
                         <td>{{requests.disease }}</td>
+                        <td>{{requests.quantity }}</td>
                         <td>{{requests.user }}</td>
                         <td>
                             {% if requests.prescription_photo %}
@@ -181,7 +181,7 @@ table{
         </table>
     </div>
     <div id="req_aids_table" style="display: none;">
-        <table>
+        <table border="1">
             <thead>
                 <tr>
                     <th>Name of the aid</th>

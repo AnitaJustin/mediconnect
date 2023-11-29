@@ -99,7 +99,7 @@ def admin_dashboard(request):
 
     return render(request,"admin_dashboard.html",{'donated_meds':donated_meds,'donated_aids':donated_aids,'req_med':request_med,'req_aids':req_aids})
 
-@login_required
+@admin_loggedin
 def approve(request):
     if request.method=='GET':
         id=request.GET.get('id')
@@ -118,7 +118,7 @@ def approve(request):
             send_mail("Request from Mediconnect",f"We are happy to help you.\nWe have accepted your request.\nEquipment : {obj.aid.name}\nRate : {obj.aid.rate}",from_email,[user_mail],html_message=None)
     return redirect('admin_dashboard')
 
-@login_required
+@admin_loggedin
 def remove(request):
     if request.method=='GET':
         id=request.GET.get('id')
@@ -127,6 +127,14 @@ def remove(request):
         obj=model.objects.filter(id=id).first()
         obj.removed="True"
         obj.save()  
+        if table=="req_med":
+            user_mail=obj.user.email
+            from_email = 'mediconnect007@gmail.com'
+            send_mail("Donation Declined",f"We are sorry to inform you that.\nWe have declined your request.\nMedicine : {obj.medicine}\nQuantity : {obj.quantity}",from_email,[user_mail],html_message=None)
+        if table=="saving_request":
+            user_mail=obj.user.email
+            from_email = 'mediconnect007@gmail.com'
+            send_mail("Request from Mediconnect",f"We are happy to help you.\nWe have accepted your request.\nEquipment : {obj.aid.name}\nRate : {obj.aid.rate}",from_email,[user_mail],html_message=None)
     return redirect('admin_dashboard')
 @login_required
 def medicine(request):
@@ -156,10 +164,6 @@ def medicine(request):
             print(form.errors)
     else:
         form = MedicineForm()
-        print(form['disease'])
-
-        
-
     return render(request,"medicine.html",{'form':form})
 
 @login_required
@@ -246,7 +250,6 @@ def payment(request):
         return render(request,"payment.html")
 @csrf_exempt
 def payment_sucess(request):
-    print(request.POST)
     response=request.POST.get('razorpay_order_id')
     donor=Payments.objects.filter(payment_id=response).first()
     donor.paid=True
