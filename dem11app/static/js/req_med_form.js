@@ -17,11 +17,34 @@ function updateMedicineDropdown(diseaseDropdownId, medicineDropdownId) {
                 console.log(error);
             }
         });
+  
     } else {
         // If no disease is selected, clear the medicine dropdown
         $(medicineDropdownId).empty();
     }
 }
+function updateMedicineCount(diseaseDropdownId, medicineDropdownId,quantityFieldId) {
+    var selectedDisease = $(diseaseDropdownId).val();
+    var selectedMedicine=$(medicineDropdownId).val();
+
+    if (selectedDisease && selectedMedicine) {
+        $.ajax({
+            url: `/get_number/${selectedDisease}/${selectedMedicine}/`,
+            type: 'GET',
+            success: function (data) {
+                console.log(data);
+                // Assuming data is the number of corresponding medicines
+                var quantityField = $(quantityFieldId);
+                quantityField.attr('placeholder', 'Enter quantity (Max: ' + data.count + ')');
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+}
+
+
 $(document).ready(function () {
     updateMedicineDropdown('#id_disease', '#id_medicine');
 
@@ -30,3 +53,5 @@ $(document).ready(function () {
         updateMedicineDropdown('#id_disease', '#id_medicine');
     });
 });
+
+

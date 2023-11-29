@@ -164,15 +164,20 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="{% static 'js/req_med_form.js' %}"></script>
+
 <script>
     // Call the function when the page loads
     $(document).ready(function () {
         updateMedicineDropdown('#id_disease', '#id_medicine');
+        updateMedicineCount('#id_disease', '#id_medicine','#id_quantity')
 
         // Set up an event listener for the disease dropdown change
         $('#id_disease').change(function () {
             updateMedicineDropdown('#id_disease', '#id_medicine');
         });
+        $('#id_medicine').change(function () {
+                updateMedicineCount('#id_disease', '#id_medicine', '#id_quantity');
+            });
     });
 </script>
 {% endblock%}

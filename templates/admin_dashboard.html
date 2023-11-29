@@ -167,7 +167,7 @@ table{
                           </td>
                           <td>
                             {% if not requests.approved %}
-                                <button id="approve_{{ requests.id }}" onclick="approve('{{ requests.id }}','req_med')">Approve</button>
+                                <button id="approve_{{ requests.id }}" onclick="approve_med('{{ requests.id }}','req_med','{{ requests.quantity}}')">Approve</button>
                             {% else %}
                                 Approved
                             {% endif %}
@@ -253,6 +253,9 @@ table{
     }
         function approve(id,table){
             window.location.href = `/admin_dashboard/approve?id=${id}&table=${table}`;
+        }
+        function approve_med(id,table,quantity){
+            window.location.href = `/admin_dashboard/approve?id=${id}&table=${table}&quantity=${quantity}`;
         }
         function remove(id,table){
             window.location.href = `/admin_dashboard/remove?id=${id}&table=${table}`;

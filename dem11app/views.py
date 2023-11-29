@@ -109,10 +109,15 @@ def approve(request):
         obj.approved="True"
         obj.save()  
         if table=="req_med":
+            quantity=request.GET.get('quantity')
+            med=medicines.objects.filter(name=obj.medicine).first()
+            med.quantity-=int(quantity)
+            med.save()
             user_mail=obj.user.email
             from_email = 'mediconnect007@gmail.com'
             send_mail("Request from Mediconnect",f"We are happy to help you.\nWe have accepted your request.\nMedicine : {obj.medicine}\nQuantity : {obj.quantity}",from_email,[user_mail],html_message=None)
         if table=="saving_request":
+            
             user_mail=obj.user.email
             from_email = 'mediconnect007@gmail.com'
             send_mail("Request from Mediconnect",f"We are happy to help you.\nWe have accepted your request.\nEquipment : {obj.aid.name}\nRate : {obj.aid.rate}",from_email,[user_mail],html_message=None)
@@ -191,16 +196,21 @@ def aids(request):
 def request_med(request):
     if request.method=='POST':
         form=Req_med_Form(request.POST,request.FILES)
-        
-        if form.is_valid():
-            receiver=form.save(commit=False)
-            receiver.user=request.user
-            
-            receiver.save()
+        print(form)
+        obj=medicines.objects.filter(name=form.cleaned_data['medicine'],disease=form.cleaned_data['disease']).first()
+        if int(form.cleaned_data['quantity'])<(obj.quantity):
+            if form.is_valid():
+                receiver=form.save(commit=False)
+                receiver.user=request.user  
+                
+                receiver.save()
 
-            SendMailToAdmin('New request Submitted',get_req_med_message(receiver))
-            success(request, 'Request submitted successfully.')
-            return redirect('dashboard')
+                SendMailToAdmin('New request Submitted',get_req_med_message(receiver))
+                success(request, 'Request submitted successfully.')
+                return redirect('dashboard')
+        else:
+            info(request, 'No of medicines available for the selected disease is:'+ str(obj.quantity))
+            return redirect('receiver')
 
         
     else:
@@ -209,7 +219,7 @@ def request_med(request):
 
 @login_required
 def request_aid(request):
-    aids = OtherAids.objects.all()
+    aids = OtherAids.objects.filter(removed=False ,approved=False)
     return render(request,"req_aids.html",{'aids':aids})
 @login_required
 def saving_req(request):
@@ -228,7 +238,9 @@ def get_medicines(request,disease):
     medicines_list = medicines.objects.filter(disease=disease).values('name')
     return JsonResponse(list(medicines_list), safe=False)
 
-
+def get_number(request,disease,medicine):
+    medicine_count=medicines.objects.filter(disease=disease,medicine=medicine)
+    return  JsonResponse({'count': medicine_count})
 
 def payment(request):
     if request.method=='POST':
