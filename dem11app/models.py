@@ -60,4 +60,10 @@ class saving_request(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     approved=models.BooleanField(default="False")
     removed=models.BooleanField(default="False")
-    
+
+class Payments(models.Model):
+    name=models.CharField(max_length=150)
+    amount = models.FloatField()
+    mail=models.EmailField()
+    payment_id=models.CharField(max_length=150)
+    paid=models.BooleanField(default=False)

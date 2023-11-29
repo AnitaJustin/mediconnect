@@ -39,12 +39,21 @@
     }
 
 .donate_aid button {
-  background-color: #095a28;
-  color: #fff;
+  background-color: #fcfffd;
+  color: rgb(0, 0, 0);
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+.donate_aid button:hover{
+  background-color: #cbd7cf;
+  color: rgb(0, 0, 0);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px; 
 }
 
 
@@ -55,12 +64,33 @@
     <form method="post" enctype="multipart/form-data"  action="{% url 'aids' %}">
         {% csrf_token %}
         <table>
-            {% for field in form %}
-                <tr>
-                    <td>{{ field.label_tag }}</td>
-                    <td>{{ field }}</td>
-                </tr>
-            {% endfor %}
+          <tr>
+            <td>{{ form.disease.label_tag }}</td>
+            <td>{{ form.disease }}
+                <input type="text" id="other-disease-input" name="other_disease" style="display: none;" placeholder="Enter the disease name:">
+                <!-- {{ form.other_disease }} -->
+            </td>
+          </tr>
+          <tr>
+            <td>Acessory Name</td>
+            <td>{{ form.name }}</td>
+          </tr>
+          <tr>
+            <td>Duration Of Use in Year</td>
+            <td>{{ form.age }}</td>
+          </tr>
+          <tr>
+            <td>Rate</td>
+            <td>{{ form.rate }}</td>
+          </tr>
+          <tr>
+            <td>manufacturer</td>
+            <td>{{ form.manufacturer }}</td>
+          </tr>
+          <tr>
+            <td>Current Photo</td>
+            <td>{{ form.current_photo }}</td>
+          </tr>
         </table>
         <button type="submit">Submit</button>
 

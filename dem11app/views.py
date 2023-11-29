@@ -9,6 +9,9 @@ from django.core.mail import send_mail
 from django.apps import apps
 from django.http import JsonResponse
 from .decorators import *
+import razorpay
+from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
 
 
 def homepage(request):
@@ -221,6 +224,34 @@ def get_medicines(request,disease):
     medicines_list = medicines.objects.filter(disease=disease).values('name')
     return JsonResponse(list(medicines_list), safe=False)
 
+
+
+def payment(request):
+    if request.method=='POST':
+        name=request.POST.get('name')
+        amount=int(request.POST.get('amount'))
+        email=request.POST.get('email')
+
+        client=razorpay.Client(auth=(settings.KEY,settings.SECRET))
+
+        payment=client.order.create({'amount':amount*100,'currency':'INR','payment_capture':1})
+        payment_id=payment['id']
+        payment_status=payment['status']
+        p=Payments(name=name,amount=amount,mail=email,payment_id=payment_id)
+        p.save()
+        payment['name']=name
+        return render(request,"payment.html",{'payment':payment})
+
+    else:
+        return render(request,"payment.html")
+@csrf_exempt
+def payment_sucess(request):
+    print(request.POST)
+    response=request.POST.get('razorpay_order_id')
+    donor=Payments.objects.filter(payment_id=response).first()
+    donor.paid=True
+    donor.save()
+    return render(request,"pay_sucess.html")
 def SendMailToAdmin(subject,message):
    
     from_email = 'mediconnect007@gmail.com'
@@ -267,3 +298,5 @@ def get_aids_user_message(aids):
            f'Here are some details regarding your donation:\n'\
            f'Name of Equipment: {aids.name}\n'\
            f'Rate: {aids.rate}\n'
+
+

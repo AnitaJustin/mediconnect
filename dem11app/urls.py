@@ -21,6 +21,8 @@ urlpatterns = [
     path('about/',about,name='about'),
     path('contact/',contact,name='contact'),
     path('get_medicines/<str:disease>/',get_medicines, name='get_medicines'),
+    path('payment/',payment,name="payment"),
+    path('sucess/',payment_sucess,name="sucess"),
 
 
 

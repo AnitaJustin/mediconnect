@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import razorpay
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -140,4 +141,7 @@ DEFAULT_FROM_EMAIL = 'mediconnec007@gmail.com'
 
 MEDIA_ROOT = BASE_DIR / "media"  # or any other path where you want to store media files
 MEDIA_URL = '/media/'
+
+KEY="rzp_test_CNn5nUipmqdH3p"
+SECRET="CwKBRxxqNYZnfQ1LQBStkWDT"
 

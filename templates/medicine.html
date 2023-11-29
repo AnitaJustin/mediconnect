@@ -24,12 +24,16 @@
   color: rgb(255, 255, 255);
 
 }
+.form-control {
+        width: 100%;
+        height: 40px;
+    }
 
 .donate_med input {
   padding: 10px;
   border: 1px solid rgb(57, 165, 93);
   margin-bottom: 2px;
-  width: 100%; /* Make the input fields fill the available width */
+  width: 100%;
 }
 
 .donate_med table {
@@ -57,7 +61,7 @@
           <tr>
             <td>{{ form.disease.label_tag }}</td>
             <td>{{ form.disease }}
-                <input type="text" id="other-disease-input" name="other_disease" style="display: none;">
+                <input type="text" id="other-disease-input" name="other_disease" style="display: none;" placeholder="Enter the disease name:">
                 <!-- {{ form.other_disease }} -->
             </td>
           </tr>
