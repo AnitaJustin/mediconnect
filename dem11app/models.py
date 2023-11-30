@@ -25,6 +25,7 @@ class medicines(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     approved=models.BooleanField(default="False")
     removed=models.BooleanField(default="False")
+    reached_store=models.BooleanField(default="False")
     def __str__(self):
         return self.name
 
@@ -38,6 +39,8 @@ class OtherAids(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     approved=models.BooleanField(default="False")
     removed=models.BooleanField(default="False")
+    reached_store=models.BooleanField(default="False")
+
     def __str__(self):
         return self.name
     
@@ -49,7 +52,8 @@ class req_med(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     prescription_photo = models.ImageField(upload_to='media/prescriptions/', null=True, blank=True)
     approved=models.BooleanField(default="False")
-    removed=models.BooleanField(default="False")    
+    removed=models.BooleanField(default="False")  
+    collected=models.BooleanField(default="False")
     def __str__(self):
         return self.medicine
     
@@ -60,6 +64,8 @@ class saving_request(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     approved=models.BooleanField(default="False")
     removed=models.BooleanField(default="False")
+    collected=models.BooleanField(default="False")
+
 
 class Payments(models.Model):
     name=models.CharField(max_length=150)

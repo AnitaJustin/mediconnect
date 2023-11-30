@@ -343,10 +343,27 @@
   </div>
 
   <!--Chatbot-->
-  <div class="chatbot">
-    <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
-    <script src="https://mediafiles.botpress.cloud/9758b228-a6eb-43fe-99e0-ede41835eb36/webchat/config.js" defer></script>
-</div>
+  <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
+  <script>
+    window.botpressWebChat.init({
+        "composerPlaceholder": "Ask me anything",
+        "botConversationDescription": "Know about Mediconnect",
+        "botId": "9758b228-a6eb-43fe-99e0-ede41835eb36",
+        "hostUrl": "https://cdn.botpress.cloud/webchat/v1",
+        "messagingUrl": "https://messaging.botpress.cloud",
+        "clientId": "9758b228-a6eb-43fe-99e0-ede41835eb36",
+        "webhookId": "7f087be6-f71a-4e82-9b0a-04c972348be3",
+        "lazySocket": true,
+        "themeName": "prism",
+        "botName": "Medi",
+        "stylesheet": "https://webchat-styler-css.botpress.app/prod/6bee6b0f-97e8-4046-86fb-8833717f334e/v78862/style.css",
+        "frontendVersion": "v1",
+        "useSessionStorage": true,
+        "enableConversationDeletion": true,
+        "theme": "prism",
+        "themeColor": "#2563eb"
+    });
+  </script>
   <!-- treatment section -->
 
   <section class="treatment_section layout_padding">

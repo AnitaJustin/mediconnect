@@ -92,14 +92,27 @@ table{
                             {% endif %}
                         </td>
                         <td>
-                            <button id="remove_{{ donations.id }}" onclick="remove('{{ donations.id }}','medicines')">Remove</button>
+                            {% if not donations.approved %}
+                            <button id="remove_{{ donations.id }}" onclick="remove('{{ donations.id }}','medicines')">Decline</button>
+                            {% else %}
+                            <button id="remove_{{ donations.id }}" onclick="remove('{{ donations.id }}','medicines')" disabled="true">Decline</button>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if not donations.reached_store %}
+                                <button id="reached_store_{{ donations.id }}" onclick="obtain('{{ donations.id }}','medicines')">Obtain Item</button>
+                            {% else %}
+                                Item Obtained
+                            {% endif %}
                         </td>
                     </tr>
+                    
                 {% endfor %}
             </tbody>
         </table>
     </div>
     <div id="donatedaids_table" style="display: none;">
+        <div class="row">
         <table border="1">
             <thead>
                 <tr>
@@ -110,7 +123,7 @@ table{
                     <th>photo</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody> 
                 {% for donations in donated_aids %}
                     <tr>
                         <td>{{ donations.name }}</td>
@@ -132,12 +145,26 @@ table{
                             {% endif %}
                         </td>
                         <td>
+                            {% if not donations.approved %}
                             <button id="remove_{{ donations.id }}" onclick="remove('{{ donations.id }}','OtherAids')">Remove</button>
+                            {% else %}
+                            <button id="remove_{{ donations.id }}" onclick="remove('{{ donations.id }}','OtherAids')" disabled="true">Decline</button>
+                            {% endif %}
                         </td>
-                    </tr>
+                        <td>
+                            {% if not donations.reached_store %}
+                                <button id="obtain_{{ donations.id }}" onclick="obtain('{{ donations.id }}','OtherAids')">Obtain Item</button>
+                            {% else %}
+                                Item Obtained
+                            {% endif %}
+                        </td>
+
+                    </tr> 
                 {% endfor %}
+             
             </tbody>
         </table>
+        </div>
     </div>
     <div id="requestedmed_table" style="display: none;">
         <table border="1">
@@ -173,8 +200,20 @@ table{
                             {% endif %}
                         </td>
                         <td>
-                            <button id="remove_{{ requests.id }}" onclick="remove('{{ requests.id }}','req_med')">Remove</button>
+                            {% if not requests.collected %}
+                            <button id="remove_{{ requests.id }}" onclick="remove('{{ requests.id }}','req_med')">Decline</button>
+                            {% else %}
+                            <button id="remove_{{ requests.id }}" onclick="remove('{{ requests.id }}','req_med')" disabled="true">Decline</button>
+                            {% endif %}
                         </td>
+                        <td>
+                            {% if not requests.collected %}
+                                <button id="collected_{{ requests.id }}" onclick="collect_med('{{ requests.id }}','req_med','{{ requests.quantity}}')">Collect</button>
+                            {% else %}
+                                Collected
+                            {% endif %}
+                        </td>
+
                     </tr>
                 {% endfor %}
             </tbody>
@@ -205,7 +244,20 @@ table{
                             {% endif %}
                         </td>
                         <td>
-                            <button id="remove_{{ requests.id }}" onclick="remove('{{ requests.id }}','saving_request')">Remove</button>
+                            {% if not requests.approved %}
+                            <button id="remove_{{ requests.id }}" onclick="remove('{{ requests.id }}','saving_request')">Decline</button>
+                            {% else %}
+                            <button id="remove_{{ requests.id }}" onclick="remove('{{ requests.id }}','saving_request')" disabled="true">Decline</button>
+                            {% endif %}
+
+
+                        </td>
+                        <td>
+                            {% if not requests.collected %}
+                                <button id="collected_{{ requests.id }}" onclick="collect('{{ requests.id }}','saving_request')">Collect</button>
+                            {% else %}
+                                Collected
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}
@@ -256,6 +308,17 @@ table{
         }
         function approve_med(id,table,quantity){
             window.location.href = `/admin_dashboard/approve?id=${id}&table=${table}&quantity=${quantity}`;
+        }
+        function collect_med(id,table,quantity){
+            window.location.href = `/admin_dashboard/collect?id=${id}&table=${table}&quantity=${quantity}`;
+        }
+        function collect(id,table){
+            window.location.href = `/admin_dashboard/collect?id=${id}&table=${table}`;
+
+        }
+        function obtain(id,table){
+            window.location.href = `/admin_dashboard/obtain?id=${id}&table=${table}`;
+
         }
         function remove(id,table){
             window.location.href = `/admin_dashboard/remove?id=${id}&table=${table}`;

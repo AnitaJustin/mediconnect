@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import razorpay
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -135,13 +138,13 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'mediconnect007@gmail.com'
-EMAIL_HOST_PASSWORD = 'zvxz sgqc goxz ytqp'
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = 'mediconnec007@gmail.com'
 
 
 MEDIA_ROOT = BASE_DIR / "media"  # or any other path where you want to store media files
 MEDIA_URL = '/media/'
 
-KEY="rzp_test_CNn5nUipmqdH3p"
-SECRET="CwKBRxxqNYZnfQ1LQBStkWDT"
+KEY=os.environ.get('KEY')
+SECRET=os.environ.get('SECRET')
 

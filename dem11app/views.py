@@ -92,10 +92,10 @@ def dashboard(request):
 @admin_loggedin
 def admin_dashboard(request):
     
-    donated_meds=medicines.objects.filter(removed="False")
-    donated_aids=OtherAids.objects.filter(removed="False")
-    request_med=req_med.objects.filter(removed="False")
-    req_aids=saving_request.objects.filter(removed="False")
+    donated_meds=medicines.objects.filter(removed="False",reached_store="False")
+    donated_aids=OtherAids.objects.filter(removed="False",reached_store="False")
+    request_med=req_med.objects.filter(removed="False",collected="False")
+    req_aids=saving_request.objects.filter(removed="False",collected="False")
 
     return render(request,"admin_dashboard.html",{'donated_meds':donated_meds,'donated_aids':donated_aids,'req_med':request_med,'req_aids':req_aids})
 
@@ -108,14 +108,20 @@ def approve(request):
         obj=model.objects.filter(id=id).first()
         obj.approved="True"
         obj.save()  
-        if table=="req_med":
-            quantity=request.GET.get('quantity')
-            med=medicines.objects.filter(name=obj.medicine).first()
-            med.quantity-=int(quantity)
-            med.save()
+        if table=="medicines":
             user_mail=obj.user.email
             from_email = 'mediconnect007@gmail.com'
-            send_mail("Request from Mediconnect",f"We are happy to help you.\nWe have accepted your request.\nMedicine : {obj.medicine}\nQuantity : {obj.quantity}",from_email,[user_mail],html_message=None)
+            send_mail("Request from Mediconnect",f"We are happy to help you.\nWe have accepted your Donation of the following medicine.Kindly Deliver to the shelter adress.\nMedicine : {obj.name}\nQuantity : {obj.quantity}",from_email,[user_mail],html_message=None)
+        if table=="OtherAids":
+            user_mail=obj.user.email
+            from_email = 'mediconnect007@gmail.com'
+            send_mail("Request from Mediconnect",f"We are happy to help you.\nWe have accepted your Donation of the following equipment.Kindly Deliver to the shelter adress.\nMedicine : {obj.name}\nQuantity : {obj.quantity}",from_email,[user_mail],html_message=None)
+
+
+        if table=="req_med":
+            user_mail=obj.user.email
+            from_email = 'mediconnect007@gmail.com'
+            send_mail("Request from Mediconnect",f"We are happy to help you.\nWe have accepted your request.\nnEquipment : {obj.aid.name}\nRate : {obj.aid.rate}",from_email,[user_mail],html_message=None)
         if table=="saving_request":
             
             user_mail=obj.user.email
@@ -141,6 +147,39 @@ def remove(request):
             from_email = 'mediconnect007@gmail.com'
             send_mail("Request from Mediconnect",f"We are happy to help you.\nWe have accepted your request.\nEquipment : {obj.aid.name}\nRate : {obj.aid.rate}",from_email,[user_mail],html_message=None)
     return redirect('admin_dashboard')
+
+def collect(request):
+    if request.method=='GET':
+        id=request.GET.get('id')
+        table=request.GET.get('table')
+        model = apps.get_model(app_label='dem11app', model_name=table)
+        obj=model.objects.filter(id=id).first()
+        obj.collected="True"
+        obj.save()  
+        if table=="req_med":
+            quantity=request.GET.get('quantity')
+            med=medicines.objects.filter(name=obj.medicine).first()
+            med.quantity-=int(quantity)
+            med.save()
+    return redirect('admin_dashboard')
+
+def obtain(request):
+    print("inside if")
+    if request.method=='GET':
+        
+        id=request.GET.get('id')
+        table=request.GET.get('table')
+        model = apps.get_model(app_label='dem11app', model_name=table)
+        obj=model.objects.filter(id=id).first()
+        obj.reached_store="True"
+        obj.save()  
+        # if table=="req_med":
+        #     quantity=request.GET.get('quantity')
+        #     med=medicines.objects.filter(name=obj.medicine).first()
+        #     med.quantity+=int(quantity)
+        #     med.save()
+    return redirect('admin_dashboard')
+
 @login_required
 def medicine(request):
     if request.method=='POST':
@@ -155,6 +194,7 @@ def medicine(request):
             medicine=form.save(commit=False)
             medicine.user=request.user
             medicine.disease=disease
+
             existing_medicine = medicines.objects.filter(name__iexact=medicine.name, disease__iexact=medicine.disease).first()
             if existing_medicine:
                 existing_medicine.quantity += medicine.quantity
@@ -202,9 +242,7 @@ def request_med(request):
             if form.is_valid():
                 receiver=form.save(commit=False)
                 receiver.user=request.user  
-                
                 receiver.save()
-
                 SendMailToAdmin('New request Submitted',get_req_med_message(receiver))
                 success(request, 'Request submitted successfully.')
                 return redirect('dashboard')

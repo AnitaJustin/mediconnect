@@ -17,6 +17,8 @@ urlpatterns = [
     path('admin_dashboard/',admin_dashboard,name="admin_dashboard"),
     path('admin_dashboard/approve',approve,name="approve"),
     path('admin_dashboard/remove',remove,name="remove"),
+    path('admin_dashboard/collect',collect,name="collect"),
+    path('admin_dashboard/obtain',obtain,name="obtain"),
     path('signout/', LogoutView.as_view(next_page='homepage') ,name='signout'),
     path('about/',about,name='about'),
     path('contact/',contact,name='contact'),
