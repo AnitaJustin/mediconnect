@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEDICONNECT</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Top bar styles */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(22, 73, 39, 0.8);
+            padding: 10px;
+        }
+
+        /* Logo style */
+        .logo {
+            color: white;
+            font-size: 35px;
+            padding: 10px;
+        }
+
+        /* Button style */
+        .button {
+            background-color: rgb(206, 210, 222);
+            border: 2px solid rgb(255, 255, 255);
+            color: black;
+            text-align: center;
+            font-size: 16px;
+            border-radius: 12px;
+            width: 120px;
+            height: 45px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 20px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image: url('{% static "images/base2 (2).jpg" %}');
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;
+            font-family: 'Bahnschrift Light', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="logo">MEDICONNECT</div>
+        <div>
+            <button class="button" onclick="signout()"> Sign Out</button>
+        </div>
+    </div>
+    <div class="container-fluid">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>  
+    <script>
+        function signout(){
+            window.location.href = "/signout";
+        }
+    </script>
+</body>
+</html>

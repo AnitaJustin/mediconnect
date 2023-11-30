@@ -1,0 +1,95 @@
+{% extends "userdashboard.html" %}
+
+{% block content %}
+    
+<style>
+  .aids {
+ background-color:  rgba(151, 208, 170, 0.9); 
+
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+text-align: center;
+max-width: 900px;
+width: 100%;
+margin: auto; /* Center the form horizontally */
+color: rgb(0, 0, 0);
+
+}
+
+.aids h2 {
+color: rgb(255, 249, 249);
+margin-bottom: 5px;
+font-size: 35px;
+}
+
+.aids form {
+margin-top: 5px;
+color: rgb(255, 249, 249);
+
+}
+
+.aids input {
+padding: 10px;
+border: 1px solid rgb(250, 250, 250);
+margin-bottom: 2px;
+width: 100%; /* Make the input fields fill the available width */
+}
+
+.aids table {
+      width: 95%;
+      margin-top: 10px;
+      margin: auto;
+  }
+
+.aids button {
+background-color: #eef4f1;
+color: rgb(10, 0, 0);
+padding: 10px 20px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+}
+
+
+  </style>
+
+<div class="aids">
+    <h1>Available equipments</h1>
+    <table border="1">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Duration</th>
+            <th>Rate</th>
+            <th>Manufacturer</th>
+            <th>Photo</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for aid in aids %}
+            <tr>
+              <td>{{ aid.name }}</td>
+              <td>{{ aid.age }}</td>
+              <td>{{ aid.rate }}</td>
+              <td>{{ aid.manufacturer }}</td>
+              <td>
+                {% if aid.current_photo %}
+                  <img src="{{ aid.current_photo.url }}" alt="{{ aid.name }} Photo" style="width: 100px; height: 100px;">
+                {% else %}
+                  No photo available
+                {% endif %}
+              </td>
+              <td><button onclick="req('{{aid.id}}')">Request</button></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+   
+        </div>
+        <script>
+        function req(aid){
+            window.location.href= "/saving_req?id="+encodeURIComponent(aid);
+        }
+      </script>
+{% endblock %}

@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEDICONNECT</title>
+    <style>
+        /* Top bar styles */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(22, 73, 39,0.9);
+            padding: 10px;
+            margin: auto;
+        }
+
+        /* Logo style */
+        .logo {
+            color: white;
+            font-size: 35px;
+            padding: 10px;
+        }
+
+        /* Button style */
+        .button {
+            background-color: rgb(206, 210, 222);
+            border: 2px solid rgb(255, 255, 255);
+            color: black;
+            text-align: center;
+            font-size: 16px;
+            border-radius: 12px;
+            width: 120px;
+            height: 45px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 20px;
+
+        }
+        body {
+ 
+        background-image: url("{% static 'images/base2 (2).jpg' %}");
+        background-color: rgb(225, 222, 217);
+        background-size:cover; /* Adjust as needed */
+        background-position: center; /* Adjust as needed */
+        background-repeat: no-repeat;
+        margin: 0; /* Remove default margin to ensure the image covers the entire body */
+        padding: 0; /* Remove default padding */
+        font-family: 'Bahnschrift Light', sans-serif;
+        
+    }
+    .home{
+           
+        margin-right: 10px;
+       
+       }
+    .home:hover{
+          
+        margin-right: 10px;
+        background-color:rgba(151, 216, 174, 0.9);
+        border-color: rgba(0, 0, 0, 0.9);
+        cursor: pointer;
+      }
+      .form-input {
+        width: 100%;
+        height: 40px;
+        padding-left: 15px;
+        border-radius: 8px;
+    }
+    
+    </style>
+    <link rel="stylesheet" href="{% static  'css/signin.css'  %}">   
+    
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static  'css/bootstrap.css'  %}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
+  <!-- nice select -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
+  <!-- datepicker -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css">
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+</head>
+<body>
+    <div class="top-bar">
+        <!-- <div style="padding: 10px;"><button onclick="back()"><img style="height: 25px;"src='{% static "images/back.png" %}'></button></div> -->
+        <div class="logo" style="padding: 10px;">MEDICONNECT</div>
+        <div ><img src='{% static "images/homes.png" %}' onclick="home()" class="home"></div>
+
+</div>
+<script>
+    function home(){
+        window.location.href = "/";
+    }
+</script>
+</script>
+<!-- jQery -->
+<script src="{% static  'js/jquery-3.4.1.min.js'  %}"></script>
+<!-- bootstrap js -->
+<script src="{% static  'js/bootstrap.js'  %}"></script>
+<!-- nice select -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js" integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
+<!-- owl slider -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<!-- datepicker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<!-- custom js -->
+<script src="{% static  'js/custom.js'  %}"></script>
+    {% block content %}
+    {% endblock %}
+    </body>
+    </html>
+

@@ -1,0 +1,479 @@
+ {% extends "main.html" %}
+ {% block content %}
+ <style>
+ #sidebar {
+    position: fixed;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #165A27;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 20px;
+    color: #fff;
+    text-align: center;
+}
+
+#sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #f7f31c;
+    display: block;
+    transition: 0.3s;
+}
+
+#sidebar a:hover {
+    color: #ffffff;
+}
+
+#main {
+    transition: margin-left 0.5s;
+    padding: 16px;
+}
+
+#menu-icon {
+            font-size: 40px;
+            cursor: pointer;
+            /* position: fixed; */
+            top: 20px;
+            left: 20px;
+            color: rgb(0, 0, 0);
+            z-index: 1;
+        }
+table{
+  background-color: rgba(60, 173, 98, 0.9);
+  border-radius: 10px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 70%;
+  margin: auto;
+  border: 1;
+}
+</style>
+<div id="menu-icon" onclick="toggleSidebar()">☰</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+    <a href="#" onclick="donated_meds()">Donated Medicines</a>
+    <a href="#" onclick="donated_aids()">Donated Aids</a>
+    <a href="#" onclick="requested_meds()">Requested Medicines</a>
+    <a href="#" onclick="requested_aids()">Requested Aids</a>
+</div>
+
+    <div id="donated_table" style="display: none;">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Disease</th>
+                    <th>dosage</th>
+                    <th>Manufacturer</th>
+                    <th>Expiry Date </th>
+                    <th>Contents</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for donations in donated_meds %}
+                    <tr>
+                        <td>{{ donations.name }}</td>
+                        <td>{{ donations.disease }}</td>
+                        <td>{{donations.dosage }}</td>
+                        <td>{{donations.manufacturer }}</td>
+                        <td>{{donations.expirydate }}</td>
+                        <td>{{donations.contents }}</td>
+                        <td>
+                            {% if not donations.approved %}
+                                <button id="approve_{{ donations.id }}" onclick="approve('{{ donations.id }}','medicines')">Approve</button>
+                            {% else %}
+                                Approved
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if not donations.approved %}
+                            <button id="remove_{{ donations.id }}" onclick="remove('{{ donations.id }}','medicines')">Decline</button>
+                            {% else %}
+                            <button id="remove_{{ donations.id }}" onclick="remove('{{ donations.id }}','medicines')" disabled="true">Decline</button>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if not donations.reached_store %}
+                                <button id="reached_store_{{ donations.id }}" onclick="obtain('{{ donations.id }}','medicines')">Obtain Item</button>
+                            {% else %}
+                                Item Obtained
+                            {% endif %}
+                        </td>
+                    </tr>
+                    
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div id="donatedaids_table" style="display: none;">
+        <div class="row">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>rate</th>
+                    <th>Manufacturer</th>
+                    <th>photo</th>
+                </tr>
+            </thead>
+            <tbody> 
+                {% for donations in donated_aids %}
+                    <tr>
+                        <td>{{ donations.name }}</td>
+                        <td>{{ donations.age }}</td>
+                        <td>{{donations.rate}}</td>
+                        <td>{{donations.manufacturer }}</td>
+                        <td>
+                            {% if donations.current_photo %}
+                              <img src="{{ donations.current_photo.url }}" alt="{{ donations.name }} Photo" style="width: 150px; height: 150px;">
+                            {% else %}
+                              No photo available
+                            {% endif %}
+                          </td>
+                          <td>
+                            {% if not donations.approved %}
+                                <button id="approve_{{ donations.id }}" onclick="approve('{{ donations.id }}','OtherAids')">Approve</button>
+                            {% else %}
+                                Approved
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if not donations.approved %}
+                            <button id="remove_{{ donations.id }}" onclick="remove('{{ donations.id }}','OtherAids')">Remove</button>
+                            {% else %}
+                            <button id="remove_{{ donations.id }}" onclick="remove('{{ donations.id }}','OtherAids')" disabled="true">Decline</button>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if not donations.reached_store %}
+                                <button id="obtain_{{ donations.id }}" onclick="obtain('{{ donations.id }}','OtherAids')">Obtain Item</button>
+                            {% else %}
+                                Item Obtained
+                            {% endif %}
+                        </td>
+
+                    </tr> 
+                {% endfor %}
+             
+            </tbody>
+        </table>
+        </div>
+    </div>
+    <div id="requestedmed_table" style="display: none;">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Disease</th>
+                    <th>Quantity</th>
+                    <th>Requested By</th>
+                    <th>Prescription Photo </th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for requests in req_med %}
+                    <tr>
+                        <td>{{ requests.medicine }}</td>
+                        <td>{{requests.disease }}</td>
+                        <td>{{requests.quantity }}</td>
+                        <td>{{requests.user }}</td>
+                        <td>
+                            {% if requests.prescription_photo %}
+                              <img src="{{ requests.prescription_photo.url }}" alt="{{ requests.medicine }} Photo" style="width: 150px; height: 150px;">
+                            {% else %}
+                              No photo available
+                            {% endif %}
+                          </td>
+                          <td>
+                            {% if not requests.approved %}
+                                <button id="approve_{{ requests.id }}" onclick="approve_med('{{ requests.id }}','req_med','{{ requests.quantity}}')">Approve</button>
+                            {% else %}
+                                Approved
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if not requests.collected %}
+                            <button id="remove_{{ requests.id }}" onclick="remove('{{ requests.id }}','req_med')">Decline</button>
+                            {% else %}
+                            <button id="remove_{{ requests.id }}" onclick="remove('{{ requests.id }}','req_med')" disabled="true">Decline</button>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if not requests.collected %}
+                                <button id="collected_{{ requests.id }}" onclick="collect_med('{{ requests.id }}','req_med','{{ requests.quantity}}')">Collect</button>
+                            {% else %}
+                                Collected
+                            {% endif %}
+                        </td>
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div id="req_aids_table" style="display: none;">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Name of the aid</th>
+                    <th>requested user</th>
+                    <th>rate</th>
+                    <th>Manufacturer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for requests in req_aids %}
+                    <tr>
+                        <td>{{ requests.aid.name}}</td>
+                        <td>{{ requests.user }}</td>
+                        <td>{{requests.aid.rate }}</td>
+                        <td>{{requests.aid.manufacturer }}</td>
+                        <td>
+                            {% if not requests.approved %}
+                                <button id="approve_{{ requests.id }}" onclick="approve('{{ requests.id }}','saving_request')">Approve</button>
+                            {% else %}
+                                Approved
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if not requests.approved %}
+                            <button id="remove_{{ requests.id }}" onclick="remove('{{ requests.id }}','saving_request')">Decline</button>
+                            {% else %}
+                            <button id="remove_{{ requests.id }}" onclick="remove('{{ requests.id }}','saving_request')" disabled="true">Decline</button>
+                            {% endif %}
+
+
+                        </td>
+                        <td>
+                            {% if not requests.collected %}
+                                <button id="collected_{{ requests.id }}" onclick="collect('{{ requests.id }}','saving_request')">Collect</button>
+                            {% else %}
+                                Collected
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script>
+        function donated_meds(){
+            hideAllTables();
+            var table = document.getElementById("donated_table");
+            toggleTable(table);
+        }
+        function donated_aids(){
+          
+            hideAllTables();
+            var table = document.getElementById("donatedaids_table");
+            toggleTable(table);
+    
+        }
+        function requested_meds() {
+            hideAllTables();
+            var table = document.getElementById("requestedmed_table");
+            toggleTable(table);
+        }
+        function requested_aids(){
+            hideAllTables();
+            var table = document.getElementById("req_aids_table");
+            toggleTable(table);
+        }
+        
+        function hideAllTables() {
+            var tables = document.querySelectorAll("[id$='_table']");
+            tables.forEach(function (table) {
+                table.style.display = "none";
+        });
+    }
+
+        function toggleTable(table) {
+            if (table.style.display === "none") {
+                table.style.display = "block";
+            } 
+            else {
+                table.style.display = "none";
+        }
+    }
+        function approve(id,table){
+            window.location.href = `/admin_dashboard/approve?id=${id}&table=${table}`;
+        }
+        function approve_med(id,table,quantity){
+            window.location.href = `/admin_dashboard/approve?id=${id}&table=${table}&quantity=${quantity}`;
+        }
+        function collect_med(id,table,quantity){
+            window.location.href = `/admin_dashboard/collect?id=${id}&table=${table}&quantity=${quantity}`;
+        }
+        function collect(id,table){
+            window.location.href = `/admin_dashboard/collect?id=${id}&table=${table}`;
+
+        }
+        function obtain(id,table){
+            window.location.href = `/admin_dashboard/obtain?id=${id}&table=${table}`;
+
+        }
+        function remove(id,table){
+            window.location.href = `/admin_dashboard/remove?id=${id}&table=${table}`;
+        }
+        function toggleSidebar() {
+        var sidebar = document.getElementById("sidebar");
+        var main = document.getElementById("main");
+
+        if (sidebar.style.left === "0px") {
+            sidebar.style.left = "-250px";
+            main.style.marginLeft = "0";
+        } else {
+            sidebar.style.left = "0px";
+            main.style.marginLeft = "250px";
+        }
+    }
+    // Function to show the sidebar
+    function showSidebar() {
+        document.getElementById("sidebar").style.left = "0";
+        document.getElementById("main").style.marginLeft = "250px";
+    }
+
+    // Function to hide the sidebar
+    function hideSidebar() {
+        document.getElementById("sidebar").style.left = "-250px";
+        document.getElementById("main").style.marginLeft = "0";
+    }
+    </script>
+  {% endblock %}
+<!-- 
+
+<style>
+    /* Add some styling to the sidebar */
+    #sidebar {
+        position: fixed;
+        left: -250px;
+        width: 250px;
+        height: 100%;
+        background-color: #165A27;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 20px;
+        color: #fff;
+        text-align: center;
+    }
+
+    #sidebar a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 18px;
+        color: #ffcc00;
+        display: block;
+        transition: 0.3s;
+    }
+
+    #sidebar a:hover {
+        color: #ffffff;
+    }
+
+    #main {
+        transition: margin-left 0.5s;
+        padding: 16px;
+    }
+
+    #menu-icon {
+        font-size: 24px;
+        cursor: pointer;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        color: #fff;
+        z-index: 1;
+    }
+</style>
+
+
+<div id="menu-icon" onclick="toggleSidebar()">☰</div>
+
+
+<div id="sidebar">
+    <a href="#" onclick="donated_meds()">Donated Medicines</a>
+    <a href="#" onclick="donated_aids()">Donated Aids</a>
+    <a href="#" onclick="requested_meds()">Requested Medicines</a>
+    <a href="#" onclick="requested_aids()">Requested Aids</a>
+</div>
+
+
+<div id="main">
+    <h1>Welcome</h1>
+    
+</div>
+
+<script>
+    // Function to show the sidebar
+    function showSidebar() {
+        document.getElementById("sidebar").style.left = "0";
+        document.getElementById("main").style.marginLeft = "250px";
+    }
+
+    // Function to hide the sidebar
+    function hideSidebar() {
+        document.getElementById("sidebar").style.left = "-250px";
+        document.getElementById("main").style.marginLeft = "0";
+    }
+
+    // Function to handle button clicks
+    function donated_meds() {
+        hideAllTables();
+        var table = document.getElementById("donated_table");
+        toggleTable(table);
+    }
+
+    function donated_aids() {
+        hideAllTables();
+        var table = document.getElementById("donatedaids_table");
+        toggleTable(table);
+    }
+
+    function requested_meds() {
+        hideAllTables();
+        var table = document.getElementById("requestedmed_table");
+        toggleTable(table);
+    }
+    function toggleSidebar() {
+        var sidebar = document.getElementById("sidebar");
+        var main = document.getElementById("main");
+
+        if (sidebar.style.left === "0px") {
+            sidebar.style.left = "-250px";
+            main.style.marginLeft = "0";
+        } else {
+            sidebar.style.left = "0px";
+            main.style.marginLeft = "250px";
+        }
+    }
+    function requested_aids() {
+        hideAllTables();
+        var table = document.getElementById("req_aids_table");
+        toggleTable(table);
+    }
+
+    function hideAllTables() {
+        var tables = document.querySelectorAll("[id$='_table']");
+        tables.forEach(function (table) {
+            table.style.display = "none";
+        });
+    }
+
+    function toggleTable(table) {
+        if (table.style.display === "none") {
+            table.style.display = "block";
+        } else {
+            table.style.display = "none";
+        }
+    }
+</script>
+
+ -->

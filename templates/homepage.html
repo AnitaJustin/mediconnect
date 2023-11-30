@@ -1,0 +1,492 @@
+{% load static %}
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        /* Top bar styles */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color:rgba(22, 73, 39,0.9);
+            padding: 10px;
+        }
+
+        /* Logo style */
+        .logo {
+            color: white;
+            font-size: 35px;
+            padding: 10px;
+        }
+        
+
+        /* Button style */
+        .button {
+            background-color:  rgba(206, 222, 210, 0.5);
+            border: 2px solid  rgba(206, 222, 210, 0.5);
+            color: black;
+            text-align: center;
+            font-size: 16px;
+            border-radius: 12px;
+            width: 100px;
+            height: 35px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 10px;
+
+        }
+        
+       
+        body {
+        background-image: url('{% static "images/bkg2.png" %}');
+        background-size: cover; /* Adjust as needed */
+        background-position: center; /* Adjust as needed */
+        background-repeat: no-repeat;
+        margin: 0; /* Remove default margin to ensure the image covers the entire body */
+        padding: 0; /* Remove default padding */
+        font-family: 'Bahnschrift Light', sans-serif;
+        
+    }
+    .maintext p {
+            background-color: rgba(22, 73, 39, 0.8); 
+            padding: 10px; 
+            margin: 10px; 
+            border-radius: 0px;
+            display: inline-block; 
+        }
+    .navbar.navbar-expand-lg.bg-body-tertiary {
+    display: flex!important;
+    justify-content: space-between!important;
+    align-items: center!important;
+    background-color: rgba(22, 73, 39, 0.8) !important;
+    padding: 10px!important;
+}
+
+.navbar.navbar-expand-lg.bg-body-tertiary .navbar-brand {
+    color: white!important;
+    font-size: 35px!important;
+    padding: 10px!important;
+}
+
+.navbar.navbar-expand-lg.bg-body-tertiary .navbar-toggler {
+    border: 2px solid rgba(206, 222, 210, 0.5)!important;
+}
+
+.navbar.navbar-expand-lg.bg-body-tertiary .navbar-toggler-icon {
+    background-color: rgba(206, 222, 210, 0.5)!important;
+}
+
+.navbar.navbar-expand-lg.bg-body-tertiary .navbar-nav .nav-link {
+    color: white!important;
+}
+        /* rgba(71, 106, 91, 0.8); */
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        
+        <div class="logo">MEDICONNECT</div>
+        <div class="about" >
+            <button type="button" class="btn btn-outline-success" onclick="about()" style="color: aliceblue;" >About Us</button>
+            <button type="button" class="btn btn-outline-success" onclick="contact()" style="color: aliceblue;">Contact</button>            
+        </div>
+            <div class="button-container"> 
+                <button class="button" onclick="signin()"> Sign In</button>
+                <button class="button" onclick="signup()"> Sign Up</button>
+            </div>
+     </div>  
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <h1 style="color: aliceblue;">Mediconnect</h1>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent" style="padding: 20px;">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0" >
+              <li class="nav-item mx-2">
+                <button type="button" class="btn btn-outline-success" onclick="about()" style="color: aliceblue;" >About Us</button>
+              </li>
+              <li class="nav-item mx-2">
+                <button type="button" class="btn btn-outline-success" onclick="contact()" style="color: aliceblue;">Contact</button> 
+              </li>
+            </ul>
+            </div>
+            <div class="button-container"> 
+                <button class="button" onclick="signin()"> Sign In</button>
+                <button class="button" onclick="signup()"> Sign Up</button>
+            </div>
+        </div>
+        </div>
+</nav>
+   
+    <h1 style="text-align: center; font-size: 55px; color: rgb(2, 5, 3); background-color: rgba(94, 113, 94, 0.8); padding-top: 2px;">Connecting Health, Sharing Hope</h1>
+    <div class="maintext">
+    <p style="text-align: center; font-size: 30px; margin-left: 100px; margin-right: 100px; font-family: 'Bahnschrift Light', sans-serif;color: rgb(241, 241, 241);">
+        Mediconnect matches your unopened,
+        unexpired medications,as well as other vital aids with those who 
+        truly need them, making a difference for the environment and changing lives in the process </p>
+    </div>
+    <div class="chatbot">
+        <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
+        <script src="https://mediafiles.botpress.cloud/9758b228-a6eb-43fe-99e0-ede41835eb36/webchat/config.js" defer></script>
+    </div>
+    <script>
+        function signin(){
+            window.location.href = "/signin";
+
+        }
+        function signup(){
+            window.location.href = "/signup";
+
+        }
+        function about(){
+            window.location.href = "/about";
+        }
+        function contact(){
+            window.location.href = "/contact";
+
+        }
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>MediConnect</title>
+
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static  'css/bootstrap.css'  %}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
+  <!-- nice select -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
+  <!-- datepicker -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css">
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+
+</head>
+
+<body>
+
+  <div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="header_top">
+        <div class="container">
+          <div class="contact_nav">
+            <a href="">
+              <i class="fa fa-phone" aria-hidden="true"></i>
+              <span>
+                Call : +91 1234567890
+              </span>
+            </a>
+            <a href="">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+              <span>
+                Email : mediconnect007@gmail.com
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="header_bottom">
+        <div class="container-fluid">
+          <nav class="navbar navbar-expand-lg custom_nav-container ">
+            <a class="navbar-brand" href="">
+              <!-- <img src="images/logo.png" alt=""> -->
+              <h2>MediConnect</h2>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class=""> </span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <div class="d-flex mr-auto flex-column flex-lg-row align-items-center">
+                <ul class="navbar-nav  ">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/about"> About</a>
+                  </li>
+                 
+                  <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact Us</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/payment">Donate Us</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="quote_btn-container">
+                <a href="/signin">
+                  <i class="fa fa-user" aria-hidden="true"></i>
+                  <span>
+                    Login
+                  </span>
+                </a>
+                <a href="/signup">
+                  <i class="fa fa-user" aria-hidden="true"></i>
+                  <span>
+                    Sign Up
+                  </span>
+                </a>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <!-- end header section -->
+    <!-- slider section -->
+    <section class="slider_section ">
+      <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="container ">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="detail-box">
+                    
+                    <h1>
+                      Medi<br>
+                      <span>
+                        Connect 
+                      </span>
+                    </h1>
+                    <p>
+                      Connecting Health, Sharing Hope 
+                    </p>
+                    <a href="/contact">
+                      Contact Us
+                    </a>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="img-box">
+                    <img src="{% static 'images/slider1.png' %}" alt="" height="400px">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="container ">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="detail-box">
+                    
+                    <h1>
+                      Medi <br>
+                      <span>
+                        Connect
+                      </span>
+                    </h1>
+                    <p>
+                      Mediconnect matches your unopened, unexpired medications,as well as other vital aids with those who truly need them, making a difference for the environment and changing lives in the process
+                    </p>
+                    <a href="">
+                      Contact Us
+                    </a>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="img-box">
+                    <img src="{% static 'images/slider2.png' %}" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="carousel_btn-box">
+          <a class="carousel-control-prev" href="#customCarousel1" role="button" data-slide="prev">
+            <img src="{% static 'images/prev.png' %}" alt="">
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#customCarousel1" role="button" data-slide="next">
+            <img src="{% static 'images/next.png' %}" alt="">
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+
+    </section>
+    <!-- end slider section -->
+  </div>
+
+  <!--Chatbot-->
+  <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
+  <script>
+    window.botpressWebChat.init({
+        "composerPlaceholder": "Ask me anything",
+        "botConversationDescription": "Know about Mediconnect",
+        "botId": "9758b228-a6eb-43fe-99e0-ede41835eb36",
+        "hostUrl": "https://cdn.botpress.cloud/webchat/v1",
+        "messagingUrl": "https://messaging.botpress.cloud",
+        "clientId": "9758b228-a6eb-43fe-99e0-ede41835eb36",
+        "webhookId": "7f087be6-f71a-4e82-9b0a-04c972348be3",
+        "lazySocket": true,
+        "themeName": "prism",
+        "botName": "Medi",
+        "stylesheet": "https://webchat-styler-css.botpress.app/prod/6bee6b0f-97e8-4046-86fb-8833717f334e/v78862/style.css",
+        "frontendVersion": "v1",
+        "useSessionStorage": true,
+        "enableConversationDeletion": true,
+        "theme": "prism",
+        "themeColor": "#2563eb"
+    });
+  </script>
+  <!-- treatment section -->
+
+  <section class="treatment_section layout_padding">
+  
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2>
+          Available <span>Facilities</span>
+        </h2>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-lg-3">
+          <div class="box ">
+            <div class="img-box">
+              <img src="{% static 'images/med.png' %}" alt="">
+            </div>
+            <div class="detail-box">
+              <h4>
+                Donate Medicine
+              </h4>
+              <p>
+                You can donate excess medicines available in your posession through this platform
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="box ">
+            <div class="img-box">
+              <img src="{% static 'images/med3.png' %}" alt="">
+            </div>
+            <div class="detail-box">
+              <h4>
+                Donate Assistance
+              </h4>
+              <p>
+                You can donate other aids which are of no more use to you through this platform like wheel chairs,walker,etc..
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="box ">
+            <div class="img-box">
+              <img src="{% static 'images/med2 (2).png' %}" alt="">
+            </div>
+            <div class="detail-box">
+              <h4>
+                Request Medicine
+              </h4>
+              <p>
+                You can request medicines available in this platform after logging in
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="box ">
+            <div class="img-box">
+              <img src="{% static 'images/med4.png' %}" alt="">
+            </div>
+            <div class="detail-box">
+              <h4>
+                Request Assistance
+              </h4>
+              <p>
+                You can request other accesories available in this platform after logging in
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- end treatment section -->
+
+
+
+
+
+  <!-- footer section -->
+  <footer class="footer_section">
+    <div class="container">
+      <p>
+        &copy; <span id="displayYear"></span> Anita Justin C
+      
+      </p>
+    </div>
+  </footer>
+  <!-- footer section -->
+  <script>
+    function signin(){
+        window.location.href = "/signin";
+
+    }
+    function signup(){
+        window.location.href = "/signup";
+
+    }
+    function about(){
+        window.location.href = "/about";
+    }
+    function contact(){
+        window.location.href = "/contact";
+
+    }
+
+</script>
+  <!-- jQery -->
+  <script src="{% static  'js/jquery-3.4.1.min.js'  %}"></script>
+  <!-- bootstrap js -->
+  <script src="{% static  'js/bootstrap.js'  %}"></script>
+  <!-- nice select -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js" integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
+  <!-- owl slider -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <!-- datepicker -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+  <!-- custom js -->
+  <script src="{% static  'js/custom.js'  %}"></script>
+
+
+</body>
+
+</html>

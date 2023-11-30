@@ -1,0 +1,234 @@
+
+{% extends "main.html" %}
+    {% block title %}Dashboard{% endblock %}
+    {% block content %}
+  
+
+<style>
+ #sidebar {
+    position: fixed;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: rgba(22, 73, 39, 0.8);
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 20px;
+    color: #fff;
+    text-align: center;
+}
+
+#sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #ffcc00;
+    display: block;
+    transition: 0.3s;
+}
+
+#sidebar a:hover {
+    color: #ffffff;
+}
+
+#main {
+    transition: margin-left 0.5s;
+    padding: 16px;
+}
+
+#menu-icon {
+    font-size: 35px;
+    cursor: pointer;
+    /* position: fixed; */
+    top: 20px;
+    left: 20px;
+    color: rgb(255, 255, 255);
+    z-index: 1;
+}
+table{
+  background-color: rgb(69, 126, 56);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 70%;
+  margin: auto;
+  border: 1;
+}
+.subelements{
+    display: none;
+}
+.alert {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #dce3e1;
+            color: #721c24;
+            padding: 10px;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            display: none;
+        }
+</style>
+{% if messages %} 
+<div id="myModal" class="modal" style="
+        position: fixed;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #dce3e1;
+        color: #721c24;
+        padding: 10px;
+        text-align: center;
+        width: 25%;
+        height: 10%;
+        border: 1px solid #f5c6cb;
+        border-radius: 5px;
+        display: none;
+    ">
+    <span class="close" onclick="closeModal()" style="color: rgb(0, 0, 0);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;">
+    &times;</span>
+    <p id="modal-content"></p>
+</div>
+
+{% endif %}
+<div id="menu-icon" onclick="toggleSidebar()">☰</div>
+
+<!-- Sidebar -->
+<div id="sidebar">
+    <a href="#" onclick="donate()">Donate</a>
+    <div id="subelements_donate" class="subelements" style="display: none;">
+    <a href="#" onclick="donateMedicine()">Medicine</a>
+    <a href="#" onclick="donateAids()">Other Aids</a>
+    </div>
+    <a href="#" onclick="receiver()" >Request</a>
+    <div id="subelements_receiver" class="subelements">
+        <a href="#" onclick="receiveMedicine()">Medicine</a>
+        <a href="#" onclick="receiveAids()">Other Aids</a>
+</div>
+</div>
+
+
+    <script>
+        function donateMedicine() {
+            window.location.href = "/medicine";
+        }
+        function donateAids() {
+            window.location.href ="/aids";
+        }
+        function donate() {
+            toggleSubElements("subelements_donate");
+        }
+
+        function receiver() {
+            toggleSubElements("subelements_receiver");
+        }
+
+        function toggleSubElements(subElementId) {
+            var subElements = document.getElementById(subElementId);
+
+            if (subElements.style.display === "none") {
+                subElements.style.display = "flex";
+            } else {
+                subElements.style.display = "none";
+            }
+        }
+
+        function receiveMedicine(){
+            window.location.href = "/request_medicine";
+        }
+        function receiveAids(){
+            window.location.href = "/request_aid";
+        }
+        
+        function previous() {
+            window.location.href = "";
+        }
+
+        function closeAlert() {
+            document.getElementById('alert-box').style.display = 'none';
+        }
+        function displayModal(message) {
+            var modal = document.getElementById('myModal');
+            var modalContent = document.getElementById('modal-content');
+            modalContent.innerHTML = message;
+            modal.style.display = 'block';
+        }
+        function closeModal() {
+            var modal = document.getElementById('myModal');
+
+            modal.style.display = 'none';
+        }
+
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            var main = document.getElementById("main");
+
+            if (sidebar.style.left === "0px") {
+                sidebar.style.left = "-250px";
+                main.style.marginLeft = "0";
+            } else {
+                sidebar.style.left = "0px";
+                main.style.marginLeft = "250px";
+            }
+        }
+
+        function showSidebar() {
+            document.getElementById("sidebar").style.left = "0";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+
+        function hideSidebar() {
+            document.getElementById("sidebar").style.left = "-250px";
+            document.getElementById("main").style.marginLeft = "0";
+        }
+        window.onload = function() {
+            {% for message in messages %} 
+                var alertMessage = "{{ message }}";
+                if (alertMessage) {
+                    displayModal(alertMessage);
+                    // Hide the modal after 5 seconds (adjust as needed)
+                    setTimeout(closeModal, 5000);
+                }
+                {% endfor %}
+        };
+    </script>
+{% endblock %}
+<!-- <div class="button_container">
+    <button class="button" type="button" onclick="donate()">Donate</button>
+    
+<button class="button" type="button" onclick="receiver()" >Request</button>
+<div id="donateOptions" style="display: none;">
+    <h1>What do you wanna Donate?</h1>
+    <br><br>
+    <button class="donor-button-sub" type="button" style=" background-color: rgb(206, 210, 222);
+    width: 140px;
+    height: 35px; 
+    margin: 30px;
+    font-size: 15px;" onclick="donateMedicine()">Medicine</button>
+    <button class="donor-button-sub" type="button" style= " background-color: rgb(206, 210, 222);
+    width: 140px;
+    height: 35px; 
+    margin: 30px;
+    font-size: 15px;" onclick="donateAids()">Other Aids</button>
+</div>
+<div id="receiveOptions" style="display: none;">
+    <h1>What do you wanna request?</h1>
+    <br><br>
+    <button class="receiver-button-sub" type="button" style=" background-color: rgb(206, 210, 222);
+    width: 140px;
+    height: 35px; 
+    margin: 30px;
+    font-size: 15px;" onclick="receiveMedicine()">Medicine</button>
+    <button class="donor-button-sub" type="button" style= " background-color: rgb(206, 210, 222);
+    width: 140px;
+    height: 35px; 
+    margin: 30px;
+    font-size: 15px;" onclick="receiveAids()">Other Aids</button>
+</div>
+
+</div> -->

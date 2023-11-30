@@ -1,0 +1,99 @@
+
+{% extends "userdashboard.html" %}
+
+{% block content %}
+<style>
+    .donate_aid {
+  background-color:  rgba(22, 73, 39,0.9);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+  margin: auto; /* Center the form horizontally */
+}
+
+.donate_aid h2 {
+  color:  rgb(255, 255, 255);
+  margin-bottom: 5px;
+  font-size: 28px;
+}
+
+.donate_aid form {
+  margin-top: 5px;
+  color:  rgb(255, 255, 255);
+  
+}
+
+.donate_aid input {
+  padding: 10px;
+  border: 1px solid rgb(57, 165, 93);
+  margin-bottom: 2px;
+  width: 100%; /* Make the input fields fill the available width */
+}
+
+.donate_aid table {
+        width: 90%;
+        margin-top: 10px;
+    }
+
+.donate_aid button {
+  background-color: #fcfffd;
+  color: rgb(0, 0, 0);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.donate_aid button:hover{
+  background-color: #cbd7cf;
+  color: rgb(0, 0, 0);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px; 
+}
+
+
+    </style>
+<br><br><br>
+<div class="donate_aid">
+    <h2>Donation Form</h2>
+    <form method="post" enctype="multipart/form-data"  action="{% url 'aids' %}">
+        {% csrf_token %}
+        <table>
+          <tr>
+            <td>{{ form.disease.label_tag }}</td>
+            <td>{{ form.disease }}
+                <input type="text" id="other-disease-input" name="other_disease" style="display: none;" placeholder="Enter the disease name:">
+                <!-- {{ form.other_disease }} -->
+            </td>
+          </tr>
+          <tr>
+            <td>Acessory Name</td>
+            <td>{{ form.name }}</td>
+          </tr>
+          <tr>
+            <td>Duration Of Use in Year</td>
+            <td>{{ form.age }}</td>
+          </tr>
+          <tr>
+            <td>Rate</td>
+            <td>{{ form.rate }}</td>
+          </tr>
+          <tr>
+            <td>manufacturer</td>
+            <td>{{ form.manufacturer }}</td>
+          </tr>
+          <tr>
+            <td>Current Photo</td>
+            <td>{{ form.current_photo }}</td>
+          </tr>
+        </table>
+        <button type="submit">Submit</button>
+
+    </form>
+    </div>
+{% endblock %}
