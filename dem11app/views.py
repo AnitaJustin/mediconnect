@@ -236,19 +236,19 @@ def aids(request):
 def request_med(request):
     if request.method=='POST':
         form=Req_med_Form(request.POST,request.FILES)
-        print(form)
-        obj=medicines.objects.filter(name=form.cleaned_data['medicine'],disease=form.cleaned_data['disease']).first()
-        if int(form.cleaned_data['quantity'])<(obj.quantity):
-            if form.is_valid():
-                receiver=form.save(commit=False)
-                receiver.user=request.user  
-                receiver.save()
-                SendMailToAdmin('New request Submitted',get_req_med_message(receiver))
-                success(request, 'Request submitted successfully.')
-                return redirect('dashboard')
-        else:
-            info(request, 'No of medicines available for the selected disease is:'+ str(obj.quantity))
-            return redirect('receiver')
+        if form.is_valid():
+            obj=medicines.objects.filter(name=form.cleaned_data['medicine'],disease=form.cleaned_data['disease']).first()
+            if int(form.cleaned_data['quantity'])<(obj.quantity):
+                if form.is_valid():
+                    receiver=form.save(commit=False)
+                    receiver.user=request.user  
+                    receiver.save()
+                    SendMailToAdmin('New request Submitted',get_req_med_message(receiver))
+                    success(request, 'Request submitted successfully.')
+                    return redirect('dashboard')
+            else:
+                info(request, 'No of medicines available for the selected disease is:'+ str(obj.quantity))
+                return redirect('receiver')
 
         
     else:
